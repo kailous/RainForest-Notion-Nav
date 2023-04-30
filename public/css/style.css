@@ -147,3 +147,17 @@ img {
 }
 
 #nav em {color: var(--text-color-light) !important;}
+
+
+#Settings {
+    display: flex;
+    background-color: #fff;
+    z-index: 99999;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin: auto;
+    padding: 30px;
+    color: #000;
+    align-items: baseline;
+    align-content: space-between;
+}

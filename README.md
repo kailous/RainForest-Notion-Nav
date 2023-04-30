@@ -12,9 +12,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## 部署
 ### Vercel
 1. Fork 本项目
+2. 修改.env 文件中的变量
 2. 在 Vercel 中导入 Fork 的项目
-3. 在 Vercel 中设置环境变量
-4. 部署
+3. 部署
 
 ```bash
 npm run dev

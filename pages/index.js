@@ -1,12 +1,21 @@
 // pages/index.js
 
 import React, { useEffect, useState } from 'react';
+import Settings from "./Settings"; // 导入Settings组件
+
 
 const IndexPage = () => {
     const [databaseContent, setDatabaseContent] = useState([]);
     const [titleName, setTitleName] = useState([]);
     const [uniqueTags, setUniqueTags] = useState([]);
-
+    const [showSettings, setShowSettings] = useState(false); // 控制 Settings 组件的显示和隐藏状态
+    // 在#Setings中插入关闭按钮
+    const handleCloseSettings = () => {
+        setShowSettings(false);
+    }
+    const handleSettingsClick = () => {
+        setShowSettings(true);
+    };
     // 过滤数据库内容
     const filterDatabaseContent = (tag) => {
         // 如果标签为"全部"，则显示全部内容
@@ -110,7 +119,10 @@ const IndexPage = () => {
                                 {tag}
                             </button>)
                     })}
-
+                    {/* 添加“设置”按钮，点击后显示 Settings 组件 */}
+                    <button className="nav-button" onClick={handleSettingsClick}>
+                        设置
+                    </button>
                 </div>
             </header>
             <main>
@@ -140,6 +152,10 @@ const IndexPage = () => {
                     })}
                 </div>
             </main>
+            {/* 如果 `showSettings` 为 true，则显示 Settings 组件 */}
+            {showSettings && (<Settings onClose={handleCloseSettings}/>)}
+        {/*   添加关闭按钮 */}
+
         </div>
     );
 };
