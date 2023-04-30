@@ -1,0 +1,10 @@
+:root {
+    --background-color: #333;
+    --text-main-color: #fff;
+    --text-color: #ccc;
+    --text-color-light: #666;
+    --cord-color: #222;
+    --nav-bg-color: #222;
+    --highlight-color: #ff7200;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+}
