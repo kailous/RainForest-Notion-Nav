@@ -134,6 +134,11 @@ img {
     gap: 5px;
     flex-direction: row-reverse;
 }
+#nav p {
+    font-size:12px;
+    line-height: 150%;
+    color: var(--text-color);
+}
 #nav button {
     font-size:12px;
     line-height: 150%;
