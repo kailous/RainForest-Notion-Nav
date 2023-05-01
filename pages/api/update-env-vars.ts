@@ -3,7 +3,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import dotenv from 'dotenv';
 
-dotenv.config(); // 读取环境变量
+dotenv.config({
+    path: '.env.local',
+});
 
 export default function handler(req: NextApiRequest, res: NextApiResponse): void {
     if (req.method === 'GET') {

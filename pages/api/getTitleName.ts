@@ -3,7 +3,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import * as dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({
+    path: '.env.local',
+});
 
 export default function handler(req: NextApiRequest, res: NextApiResponse): void {
     if (req.method === 'GET') {

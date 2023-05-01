@@ -4,7 +4,9 @@ import * as dotenv from 'dotenv';
 
 // properties
 
-dotenv.config();
+dotenv.config({
+    path: '.env.local',
+});
 
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 

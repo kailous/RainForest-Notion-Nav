@@ -156,5 +156,6 @@ const IndexPage = () => {
         </div>
     );
 };
+console.log(process.env.NAV_NAME);
 
 export default IndexPage;
