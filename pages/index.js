@@ -8,14 +8,7 @@ const IndexPage = () => {
     const [databaseContent, setDatabaseContent] = useState([]);
     const [titleName, setTitleName] = useState([]);
     const [uniqueTags, setUniqueTags] = useState([]);
-    const [showSettings, setShowSettings] = useState(false); // 控制 Settings 组件的显示和隐藏状态
-    // 在#Setings中插入关闭按钮
-    const handleCloseSettings = () => {
-        setShowSettings(false);
-    }
-    const handleSettingsClick = () => {
-        setShowSettings(true);
-    };
+
     // 过滤数据库内容
     const filterDatabaseContent = (tag) => {
         // 如果标签为"全部"，则显示全部内容
@@ -102,10 +95,6 @@ const IndexPage = () => {
                 {/* 这里将显示数据库名称 */}
                 <h1 id="title">
                     {titleName && titleName.titleName}
-                    {/* 添加“设置”按钮，点击后显示 Settings 组件 */}
-                    <button className="Settings" onClick={handleSettingsClick}>
-
-                    </button>
                 </h1>
                 <div id="nav">
                     {/* 插入按钮"全部" 点击后刷新页面 */}
@@ -148,11 +137,6 @@ const IndexPage = () => {
                     })}
                 </div>
             </main>
-            {/* 如果 `showSettings` 为 true，则显示 Settings 组件 */}
-            {showSettings && (<Settings/>)}
-            {showSettings && (<div id="box" onClick={handleCloseSettings}></div>)}
-        {/*   添加关闭按钮 */}
-
         </div>
     );
 };
