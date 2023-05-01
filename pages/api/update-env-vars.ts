@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 import fs from 'fs';
 
 dotenv.config({
-    path: undefined,
+    path: '.env.local',
 });
 
 export default function handler(req: NextApiRequest, res: NextApiResponse): void {
