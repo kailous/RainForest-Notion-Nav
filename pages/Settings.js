@@ -1,4 +1,4 @@
-// pages/Settings.js
+// pages/Settings.js 用于设置环境变量
 
 import { useState, useEffect } from 'react';
 
@@ -12,9 +12,17 @@ function Settings() {
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
-        // 从本地存储获取环境变量
-        const storedEnvVars = JSON.parse(localStorage.getItem('envVars')) || {};
-        setEnvVars(storedEnvVars);
+        async function fetchEnvVars() {
+            try {
+                const res = await fetch('/api/update-env-vars');
+                const data = await res.json();
+                setEnvVars(data);
+            } catch (err) {
+                setErrorMessage('获取环境变量失败');
+            }
+        }
+
+        fetchEnvVars();
     }, []);
 
     const handleSubmit = async (event) => {
@@ -23,9 +31,20 @@ function Settings() {
         setErrorMessage('');
 
         try {
-            // 将用户修改的环境变量存储到本地存储中
-            localStorage.setItem('envVars', JSON.stringify(envVars));
-            setErrorMessage('环境变量更新成功');
+            const res = await fetch('/api/update-env-vars', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(envVars),
+            });
+
+            if (!res.ok) {
+                const data = await res.json();
+                setErrorMessage(data.message || '更新环境变量失败');
+            } else {
+                setErrorMessage('环境变量更新成功');
+            }
         } catch (err) {
             setErrorMessage('更新环境变量失败');
         }
