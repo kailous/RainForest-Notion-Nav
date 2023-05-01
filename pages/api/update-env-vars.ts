@@ -2,7 +2,7 @@
 
 import { NextApiRequest, NextApiResponse } from 'next';
 import dotenv from 'dotenv';
-import fs from 'fs';
+// import fs from 'fs';
 
 dotenv.config();
 
@@ -37,7 +37,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse): void
     NAV_NAME=${NAV_NAME}
   `;
     try {
-        fs.writeFileSync('.env.local', envContent, 'utf-8');
+        // fs.writeFileSync('.env', envContent, 'utf-8');
         res.status(200).end('Environment Variables Updated Successfully');
     } catch (err) {
         console.error(err);
