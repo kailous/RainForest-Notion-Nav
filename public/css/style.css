@@ -129,10 +129,10 @@ img {
 #nav {
     display: flex;
     flex-wrap: nowrap;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: center;
     gap: 5px;
-    flex-direction: row-reverse;
+    flex-direction: row;
 }
 
 #nav button {
@@ -158,14 +158,14 @@ header h1 {
     flex-direction: row;
 }
 
-.Settings {
+#refresh-button {
     width: 24px;
     height: 24px;
     border: none;
-    background: url("../icons/Setting-link.svg");
+    background: url("../icons/sync-link.svg");
 }
-.Settings:hover {
-    background: url("../icons/Setting-hover.svg");
+#refresh-button:hover {
+    background: url("../icons/sync-hover.svg");
 }
 #box {
     width: 100%;
