@@ -136,7 +136,7 @@ img {
 }
 
 #nav button {
-    font-size:12px !important;
+    font-size:14px !important;
     line-height: 150%;
     border: none;
     background: none;
@@ -145,6 +145,7 @@ img {
 /*nav 当前点击后*/
 #nav button:active, #nav button:focus {
     color: var(--highlight-color) !important;
+    border-bottom: 2px solid var(--highlight-color) !important;
 }
 
 #nav em {color: var(--text-color-light) !important;}
