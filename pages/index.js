@@ -92,20 +92,25 @@ const IndexPage = () => {
             {/* 渲染页面内容和使用 `databaseContent` 数据 */}
             <header>
                 {/* 这里将显示数据库名称 */}
-                <h1 id="title">
-                    {titleName && titleName.titleName}
-                    <button id="refresh-button" onClick={handleButtonClick}/>
-                </h1>
-                <div id="nav">
-                    {/* 插入按钮"全部"*/}
-                    <button className="nav-button" onClick={() => {filterDatabaseContent('全部');}}>全部</button>
-                    {/* 这里将显示标签选项 */}
-                    {uniqueTags && uniqueTags.map((tag, index) => {
-                        return (
-                            <button className="nav-button" key={index} onClick={() => {filterDatabaseContent(tag);}}>
-                                {tag}
-                            </button>)
-                    })}
+                <div id="lift">
+                    <h1 id="title">
+                        {titleName && titleName.titleName}
+                        <button id="refresh-button" onClick={handleButtonClick}/>
+                    </h1>
+                    <div id="nav">
+                        {/* 插入按钮"全部"*/}
+                        <button className="nav-button" onClick={() => {filterDatabaseContent('全部');}}>全部</button>
+                        {/* 这里将显示标签选项 */}
+                        {uniqueTags && uniqueTags.map((tag, index) => {
+                            return (
+                                <button className="nav-button" key={index} onClick={() => {filterDatabaseContent(tag);}}>
+                                    {tag}
+                                </button>)
+                        })}
+                    </div>
+                </div>
+                <div id="right">
+                {/*插入github按钮*/}
 
                 </div>
             </header>
