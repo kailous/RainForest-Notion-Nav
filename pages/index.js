@@ -1,7 +1,6 @@
 // pages/index.js
 
 import React, { useEffect, useState } from 'react';
-import Settings from "./Settings"; // 导入Settings组件
 
 
 const IndexPage = () => {
