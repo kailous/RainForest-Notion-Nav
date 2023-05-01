@@ -134,13 +134,9 @@ img {
     gap: 5px;
     flex-direction: row-reverse;
 }
-/*#nav p {*/
-/*    font-size:12px;*/
-/*    line-height: 150%;*/
-/*    color: var(--text-color);*/
-/*}*/
+
 #nav button {
-    font-size:12px !important
+    font-size:12px !important;
     line-height: 150%;
     border: none;
     background: none;
@@ -148,7 +144,7 @@ img {
 }
 /*nav 当前点击后*/
 #nav button:active, #nav button:focus {
-    color: var(--text-color-light) !important;
+    color: var(--highlight-color) !important;
 }
 
 #nav em {color: var(--text-color-light) !important;}
