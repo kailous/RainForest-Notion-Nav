@@ -148,10 +148,35 @@ img {
 
 #nav em {color: var(--text-color-light) !important;}
 
+header h1 {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
+    flex-direction: row;
+}
 
+.Settings {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: url("../icons/Setting-link.svg");
+}
+.Settings:hover {
+    background: url("../icons/Setting-hover.svg");
+}
+#box {
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    z-index: 9999;
+    background:rgba(96, 76, 191, 0.6);
+    backdrop-filter: blur(20px);
+    /* Note: backdrop-filter has minimal browser support */
+}
 #Settings {
     display: flex;
-    background-color: #fff;
+    background-color: var(--nav-bg-color);
     z-index: 99999;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -160,4 +185,49 @@ img {
     color: #000;
     align-items: baseline;
     align-content: space-between;
+    position: absolute;
+    left: calc(50% - 350px/2);
+    top: 50px;
+    width: 350px;
+    border-radius: 30px;
+    gap: 15px;
+}
+#Settings form {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    gap: 10px;
+}
+#Settings form label {
+    font-size: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    gap: 2px;
+}
+#Settings form label * {
+    width: 100%;
+}
+#Settings form label input {
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 1px solid var(--text-color-light);
+    background: var(--background-color);
+    color: var(--text-color);
+}
+#Settings form label input:focus {
+    border: 0.5px solid var(--text-color-light) !important;
+    background: var(--background-color) !important;
+    color: var(--text-color) !important;
+}
+#Settings form button {
+    width: 100%;
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 1px solid var(--text-color-light);
+    background: rgba(96, 76, 191, 1);
+    color: rgba(255,255,255,1) !important;
 }

@@ -67,17 +67,15 @@ function Settings() {
             {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
             <form onSubmit={handleSubmit}>
                 <label>
-                    Notion API Key:
+                    <p>Notion API Key:</p>
                     <input type="text" name="NOTION_API_KEY" value={envVars.NOTION_API_KEY} onChange={handleChange} />
                 </label>
-                <br />
                 <label>
-                    Database ID:
+                    <p>Database ID:</p>
                     <input type="text" name="DATABASE_ID" value={envVars.DATABASE_ID} onChange={handleChange} />
                 </label>
-                <br />
                 <label>
-                    给导航站命个名字:
+                    <p>给导航站命个名字:</p>
                     <input type="text" name="NAV_NAME" value={envVars.NAV_NAME} onChange={handleChange} />
                 </label>
                 <br />

@@ -102,6 +102,10 @@ const IndexPage = () => {
                 {/* 这里将显示数据库名称 */}
                 <h1 id="title">
                     {titleName && titleName.titleName}
+                    {/* 添加“设置”按钮，点击后显示 Settings 组件 */}
+                    <button className="Settings" onClick={handleSettingsClick}>
+
+                    </button>
                 </h1>
                 <div id="nav">
                     {/* 插入按钮"全部" 点击后刷新页面 */}
@@ -110,19 +114,11 @@ const IndexPage = () => {
                     {/* 这里将显示标签选项 */}
                     {uniqueTags && uniqueTags.map((tag, index) => {
                         return (
-                            <button className="nav-button" key={index} onClick={
-                                () => {
-                                    // 这里将显示标签选项
-                                    filterDatabaseContent(tag);
-                                }
-                            }>
+                            <button className="nav-button" key={index} onClick={() => {filterDatabaseContent(tag);}}>
                                 {tag}
                             </button>)
                     })}
-                    {/* 添加“设置”按钮，点击后显示 Settings 组件 */}
-                    <button className="nav-button" onClick={handleSettingsClick}>
-                        设置
-                    </button>
+
                 </div>
             </header>
             <main>
@@ -153,7 +149,8 @@ const IndexPage = () => {
                 </div>
             </main>
             {/* 如果 `showSettings` 为 true，则显示 Settings 组件 */}
-            {showSettings && (<Settings onClose={handleCloseSettings}/>)}
+            {showSettings && (<Settings/>)}
+            {showSettings && (<div id="box" onClick={handleCloseSettings}></div>)}
         {/*   添加关闭按钮 */}
 
         </div>
