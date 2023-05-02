@@ -92,8 +92,9 @@ const IndexPage = () => {
             {/* 渲染页面内容和使用 `databaseContent` 数据 */}
             <header>
                 {/* 这里将显示数据库名称 */}
-                <div id="lift">
+                <div id="right">
                     <h1 id="title">
+                        <img src="/logo.png" id="logo" alt="图片加载失败" />
                         {titleName && titleName.titleName}
                         <button id="refresh-button" onClick={handleButtonClick}/>
                     </h1>
@@ -108,10 +109,6 @@ const IndexPage = () => {
                                 </button>)
                         })}
                     </div>
-                </div>
-                <div id="right">
-                {/*插入github按钮*/}
-
                 </div>
             </header>
             <main>
@@ -141,6 +138,11 @@ const IndexPage = () => {
                     })}
                 </div>
             </main>
+            <footer>
+                <img src="/next.svg" alt="图片加载失败" />
+                <img src="/vercel.svg" alt="图片加载失败" />
+                <p>Notion database nav for RainForest, developed by Kailous.</p>
+            </footer>
         </div>
     );
 };
