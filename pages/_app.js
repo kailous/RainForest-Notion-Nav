@@ -33,7 +33,7 @@ function MyApp({Component, pageProps}) {
             <Head>
                 <title>{ogTitle}</title>
                 <meta property="twitter:image" content={ogImg} />
-                <meta property="twitter:card" content={ogImg}/>
+                <meta property="twitter:card" content="app"/>
                 <meta property="twitter:title" content={ogTitle}/>
                 <meta property="twitter:description" content={ogDesc}/>
                 <meta property="description" content={ogDesc}/>
