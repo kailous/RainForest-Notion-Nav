@@ -140,7 +140,8 @@ const IndexPage = () => {
             </main>
             <footer>
                 <img src="/next.svg" alt="图片加载失败" />
-                <img src="/vercel.svg" alt="图片加载失败" />
+                <a href="https://vercel.com/kailous/rain-forest-notion-nav"><img src="/vercel.svg" alt="图片加载失败" /></a>
+                <a href="https://github.com/kailous/RainForest-Notion-Nav"><img src="/github.svg" alt="图片加载失败" /></a>
                 <p>Notion database nav for RainForest, developed by Kailous.</p>
             </footer>
         </div>
