@@ -1,5 +1,6 @@
 import '@/styles/globals.css'
 import Head from 'next/head';
+import { Analytics } from '@vercel/analytics/react';
 import Script from 'next/script';
 import React, {useState, useEffect} from 'react';
 
@@ -61,6 +62,7 @@ function MyApp({Component, pageProps}) {
             <script src="/js/style.js"></script>
             <link rel="stylesheet" href="/css/style.css"></link>
             <Component {...pageProps} />
+            <Analytics />
         </>
     );
 }
