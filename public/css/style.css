@@ -2,8 +2,8 @@ html,body,#__next,#body {
     height: 100%;
 }
 
-#body{
-    background-color: var(--background-color);
+#body, body{
+    background: var(--background-color) !important;
     display: flex;
     flex-direction: column;
 }
