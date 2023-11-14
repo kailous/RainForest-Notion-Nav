@@ -1,12 +1,7 @@
-import '@/styles/globals.css'
+import '@/pages/css/style.css';
 import Head from 'next/head';
 import { Analytics } from '@vercel/analytics/react';
-import Script from 'next/script';
 import React, {useState, useEffect} from 'react';
-
-// export default function App({ Component, pageProps }) {
-//   return <Component {...pageProps} />
-// }
 
 function MyApp({Component, pageProps}) {
     const [ogTitle, setOgTitle] = useState([]);
@@ -59,8 +54,6 @@ function MyApp({Component, pageProps}) {
                 <meta http-equiv="content-Type" content="text/html; charset=UTF-8"/>
                 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
             </Head>
-            <script src="/js/style.js"></script>
-            <link rel="stylesheet" href="/css/style.css"></link>
             <Component {...pageProps} />
             <Analytics />
         </>
