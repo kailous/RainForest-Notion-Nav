@@ -20,6 +20,14 @@
         --shadow-color: rgba(0, 0, 0, 0.3);
     }
 }
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+h1, h2, p, span, small, a {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
 html,body,#__next,#body {
     height: 100%;
 }
