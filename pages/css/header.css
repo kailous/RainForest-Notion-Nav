@@ -70,7 +70,7 @@ header #nav {
 }
 
 header #nav .nav-button {
-    font-size: 14px !important;
+    font-size: 14px;
     border: none;
     color: var(--text-color);
     padding: 5px 10px;

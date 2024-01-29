@@ -25,8 +25,20 @@
     }
 }
 @media screen and (max-width: 410px) {
-    header #title #right,header #nav {
+    header #title #right {
         display: none;
+    }
+    header #nav {
+        flex-wrap: nowrap !important;
+        overflow-x: auto;
+        margin: 0 calc(0px - var(--padding-w));
+        padding: 0 var(--padding-w);
+        gap: 10px;
+        }
+    header #nav .nav-button {
+        white-space: nowrap !important;
+        font-size: 16px !important;
+        padding: 6px 12px !important;
     }
     :root {
         --padding-w: 15px;
