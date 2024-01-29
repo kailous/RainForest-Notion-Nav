@@ -1,8 +1,22 @@
-body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-}
+/* 
+这里是全局样式，不要在这里写组件样式。
+*/
 
-h1, h2, p, span, small, a {
+/* 引入header.css */
+@import url('header.css');
+/* 引入footer.css */
+@import url('footer.css');
+/* 引入card.css */
+@import url('card.css');
+/* 引入fonts/Urbanist.css */
+@import url('fonts/Urbanist.css');
+/* 引入root.css */
+@import url('root.css');
+/* 引入responsive.css */
+@import url('responsive.css');
+
+/* 默认字体 */
+body,h1, h2, p, span, small, a {
     font-family: 'Helvetica Neue', Arial, sans-serif;
 }
 
@@ -12,14 +26,10 @@ html,body {
     padding: 0;
 }
 
-#body, body{
+body {
     background: var(--background-color) !important;
-}
-#body {
     position: relative;
     min-height: 100%;
-    /* padding-bottom: 120px;
-    padding-top: 106px; */
     box-sizing: border-box; 
 }
 a {
@@ -59,205 +69,15 @@ small {
     color: var(--text-color-light);
     line-height: 110%;
 }
-#cards-container img {
-    width:64px;
-    height:64px;
-}
+
 * {
     box-sizing: border-box;
     line-height: 100%;
     padding: 0;
     margin: 0;
 }
-
-#cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 20px;
-    flex-direction: row;
-    padding: 30px 10px 30px 30px;
-    align-items: stretch;
-    align-content: flex-start;
-    transition: all 0.3s ease;
-}
-
-.card {
-    display: flex;
-    min-width:100px;
+main {
     width: 100%;
-    flex-basis: calc(100% / 7 - 20px);
-    margin: 0;
-    transition: background 0.1s;
-    background-color: var(--cord-color);
-    box-shadow: 0 1px 3px var(--shadow-color);
-    border-radius: 20px;
-    overflow: hidden;
-    padding: 20px;
-    flex-direction: column;
-    gap: 10px;
-    flex-wrap: nowrap;
-    align-content: flex-start;
-    align-items: flex-start;
-}
-.card-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-}
-
-#body header {
-    display: flex;
-    /* margin: 0 auto; */
-    padding: 15px 30px;
-    font-size: 12px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 999;
-    background-color: var(--footer-bg-color);
-    background-color: #0000005a;
-    box-shadow: 0 10px 20px var(--shadow-color);
-    /* overflow: hidden; */
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-items: stretch;
-    gap:15px;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-}
-header #left {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 10px;
-    flex-direction: row;
-}
-header #right {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 10px;
-    flex-direction: column;
-    padding: 5px 0;
-}
-#body main {
-    /* margin: 106px 0 auto; */
-    width: 100%;
-    font-size:12px;
-}
-#nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 5px;
-    flex-direction: row;
-}
-
-#nav button {
-    font-size:14px !important;
-    width: auto;
-    line-height: 100%;
-    border: none;
-    background: none;
-    color: var(--text-color);
-    padding: 5px 10px;
-    background-color: var(--text-color-light);
-    border-radius: 15px;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-#nav button:hover {
-    color: var(--text-main-color) !important;
-    background-color: var(--highlight-color);
-}
-/*nav 当前点击后*/
-#nav button:active, #nav button:focus {
-    color: var(--text-main-color) !important;
-    background-color: var(--highlight-color);
-    box-shadow: rgba(255, 114, 0, 0.25) 0px 10px 10px 0px;
-}
-
-#nav em {color: var(--text-color-light) !important;}
-
-header h1 {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    gap: 10px;
-    flex-direction: row;
-}
-
-header #logo {
-    width: 32px;
-    height: 32px;
-}
-
-#refresh-button {
-    width: 24px;
-    height: 24px;
-    border: none;
-    background: url("../icons/sync-link.svg");
-}
-#refresh-button:hover {
-    background: url("../icons/sync-hover.svg");
-}
-#refresh-button:hover:after {
-    content: "同步数据";
-    margin-left: 34px;
-    padding: 4px 8px;
-    display: inline-flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-content: center;
-    align-items: center;
-    width: auto;
-    font-size: 10px;
-    color: #fff;
-    background-color: var(--highlight-color);
-    white-space: nowrap;
-    border-radius: 4px;
-    line-height: 100%;
-}
-#box {
-    width: 100%;
-    position: absolute;
     height: 100%;
-    z-index: 9999;
-    background:rgba(96, 76, 191, 0.6);
-    backdrop-filter: blur(20px);
-    /* Note: backdrop-filter has minimal browser support */
-}
-footer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 10px 30px;
-    flex-direction: row;
-    padding: 20px 30px;
-    font-size: 12px;
-    color: var(--text-color-light);
-    background: var(--footer-bg-color);
-    /* 背景不透明度 */
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    /* 背景模糊 */
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    /* Note: backdrop-filter has minimal browser support */
-    z-index: 999;
-}
-footer img {
-    height: 18px;
-}
-#nextlogo {
-    fill: #ff7200;
+    font-size:12px;
 }

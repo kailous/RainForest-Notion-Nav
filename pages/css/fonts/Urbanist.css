@@ -1,0 +1,27 @@
+/* 字体 Urbanist */
+/* 协议：SIL Open Font License 1.1 */
+/* 作者：Urbanist */
+/* 作者链接：https://github.com/coreyhu/Urbanist */
+/*  */
+
+@font-face {
+    font-family: 'Urbanist';
+    src: url('/fonts/Urbanist-VariableFont_wght.ttf') format('truetype-variations');
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Urbanist';
+    src: url('/fonts/Urbanist-Italic-VariableFont_wght.ttf') format('truetype-variations');
+    font-weight: 100 900;
+    font-style: italic;
+}
+
+body,h1, h2, p, span, small, a {
+    font-family: 'Urbanist', sans-serif !important;
+}
+
+.italic-text {
+    font-style: italic !important;
+}

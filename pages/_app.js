@@ -1,10 +1,16 @@
+// _app.js
+// 是一个特殊的文件名，它不能被删除。在这个文件中，你可以覆盖App组件，它是Next.js中所有页面的父组件。你可以使用它来保持状态，这意味着在页面之间导航时，它将保持不变。
+
+// 引入全局样式
 import '@/pages/css/style.css';
-import '@/pages/css/root.css';
-import '@/pages/css/responsive.css';
+// 引入Head
 import Head from 'next/head';
+// 引入Analytics
 import { Analytics } from '@vercel/analytics/react';
+// 引入React
 import React, {useState, useEffect} from 'react';
 
+// MyApp
 function MyApp({Component, pageProps}) {
     const [ogTitle, setOgTitle] = useState([]);
     const [ogImg, setOgImg] = useState([]);

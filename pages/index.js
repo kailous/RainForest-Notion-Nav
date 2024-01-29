@@ -106,7 +106,7 @@ const IndexPage = () => {
     }
     // 渲染页面内容和使用 `databaseContent` 数据
     return (
-        <div id="body">
+        <>
             {/* 渲染页面内容和使用 `databaseContent` 数据 */}
             <header>
                 {/* 这里将显示数据库名称 */}
@@ -162,7 +162,7 @@ const IndexPage = () => {
                 <a href="https://github.com/kailous/RainForest-Notion-Nav"><img src="/github.svg" alt="图片加载失败" /></a>
                 <p>Notion database nav for RainForest, developed by Kailous.</p>
             </footer>
-        </div>
+        </>
     );
 };
 console.log(process.env.NAV_NAME);
