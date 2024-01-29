@@ -1,0 +1,26 @@
+/*宽度小于1200时*/
+@media screen and (max-width: 1440px) {
+    .card {
+        flex-basis: calc(100% / 6 - 20px);
+    }
+}
+@media screen and (max-width: 1200px) {
+    .card {
+        flex-basis: calc(100% / 5 - 20px);
+    }
+}
+@media screen and (max-width: 980px) {
+    .card {
+        flex-basis: calc(100% / 4 - 20px);
+    }
+}
+@media screen and (max-width: 900px) {
+    .card {
+        flex-basis: calc(100% / 3 - 20px);
+    }
+}
+@media screen and (max-width: 740px) {
+    .card {
+        flex-basis: calc(100% / 2 - 20px);
+    }
+}

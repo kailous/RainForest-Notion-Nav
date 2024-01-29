@@ -1,4 +1,6 @@
 import '@/pages/css/style.css';
+import '@/pages/css/root.css';
+import '@/pages/css/responsive.css';
 import Head from 'next/head';
 import { Analytics } from '@vercel/analytics/react';
 import React, {useState, useEffect} from 'react';

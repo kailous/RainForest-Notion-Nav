@@ -1,0 +1,57 @@
+#Settings {
+    display: flex;
+    background-color: var(--nav-bg-color);
+    z-index: 99999;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin: auto;
+    padding: 30px;
+    color: #000;
+    align-items: baseline;
+    align-content: space-between;
+    position: absolute;
+    left: calc(50% - 350px/2);
+    top: 50px;
+    width: 350px;
+    border-radius: 30px;
+    gap: 15px;
+}
+#Settings form {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    gap: 10px;
+}
+#Settings form label {
+    font-size: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    gap: 2px;
+}
+#Settings form label * {
+    width: 100%;
+}
+#Settings form label input {
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 1px solid var(--text-color-light);
+    background: var(--background-color);
+    color: var(--text-color);
+}
+#Settings form label input:focus {
+    border: 0.5px solid var(--text-color-light) !important;
+    background: var(--background-color) !important;
+    color: var(--text-color) !important;
+}
+#Settings form button {
+    width: 100%;
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 1px solid var(--text-color-light);
+    background: rgba(96, 76, 191, 1);
+    color: rgba(255,255,255,1) !important;
+}
