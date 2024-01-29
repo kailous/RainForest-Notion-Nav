@@ -10,6 +10,7 @@ const setResponsivePadding = () => {
         if (bodyElement) {
             bodyElement.style.paddingTop = `${headerHeight}px`;
         }
+        
         // 设置主体内容的下内边距
         var bodyElement = document.querySelector('main');
         if (bodyElement) {

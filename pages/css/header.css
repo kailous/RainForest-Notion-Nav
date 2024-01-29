@@ -1,57 +1,77 @@
 header {
     display: flex;
-    /* margin: 0 auto; */
-    padding: 15px 30px;
-    font-size: 12px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 999;
-    background-color: var(--footer-bg-color);
-    background-color: #0000005a;
+    flex-direction: column; 
+    gap: 20px;
+    padding: 20px var(--padding-w);
+    background: var(--gradient-bg);
     box-shadow: 0 10px 20px var(--shadow-color);
-    /* overflow: hidden; */
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-items: stretch;
-    gap:15px;
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
 }
-header #left {
+
+header #title {
     display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 10px;
-    flex-direction: row;
-}
-header #right {
-    display: flex;
-    flex-wrap: nowrap;
     justify-content: space-between;
-    align-items: flex-start;
-    gap: 10px;
-    flex-direction: column;
-    padding: 5px 0;
+    align-items: center;
 }
-#nav {
+
+header #title #left {
+    display: flex;
+    gap: 15px;
+}
+
+header #title #left img {
+    width: var(--header-logo-size);
+    height: var(--header-logo-size);
+}
+
+header #title #left h1 {
+    display: flex;
+    align-items: center;
+    font-size: 21px;
+    font-weight: 800;
+    color: var(--text-main-color);
+}
+
+header #title #left #refresh-button {
+    width: 24px;
+    height: 40px;
+    border: none;
+    background: url("../icons/sync-link.svg") no-repeat center;
+
+}
+
+header #title #left #refresh-button:hover {
+    background-image: url("../icons/sync-hover.svg");
+}
+
+header #title #left #refresh-button:hover:after {
+    content: "同步数据";
+    margin-left: 34px;
+    padding: 4px 8px;
+    font-size: 10px;
+    color: #fff;
+    background-color: var(--highlight-color);
+    white-space: nowrap;
+    border-radius: 4px;
+    line-height: 100%;
+}
+
+header #title #right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+header #nav {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: center;
-    gap: 5px;
-    flex-direction: row;
+    gap: 10px 5px;
 }
 
-#nav button {
-    font-size:14px !important;
-    width: auto;
-    line-height: 100%;
+header #nav .nav-button {
+    font-size: 14px !important;
     border: none;
-    background: none;
     color: var(--text-color);
     padding: 5px 10px;
     background-color: var(--text-color-light);
@@ -59,55 +79,16 @@ header #right {
     transition: all 0.3s ease;
     cursor: pointer;
 }
-#nav button:hover {
+
+header #nav .nav-button:hover {
     color: var(--text-main-color) !important;
     background-color: var(--highlight-color);
 }
+
 /*nav 当前点击后*/
-#nav button:active, #nav button:focus {
+header #nav .nav-button:active,
+header #nav .nav-button:focus {
     color: var(--text-main-color) !important;
     background-color: var(--highlight-color);
     box-shadow: rgba(255, 114, 0, 0.25) 0px 10px 10px 0px;
-}
-
-#nav em {color: var(--text-color-light) !important;}
-
-header h1 {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    gap: 10px;
-    flex-direction: row;
-}
-
-header #logo {
-    width: 32px;
-    height: 32px;
-}
-
-#refresh-button {
-    width: 24px;
-    height: 24px;
-    border: none;
-    background: url("../icons/sync-link.svg");
-}
-#refresh-button:hover {
-    background: url("../icons/sync-hover.svg");
-}
-#refresh-button:hover:after {
-    content: "同步数据";
-    margin-left: 34px;
-    padding: 4px 8px;
-    display: inline-flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-content: center;
-    align-items: center;
-    width: auto;
-    font-size: 10px;
-    color: #fff;
-    background-color: var(--highlight-color);
-    white-space: nowrap;
-    border-radius: 4px;
-    line-height: 100%;
 }

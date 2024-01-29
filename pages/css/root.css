@@ -1,24 +1,54 @@
-:root {
-    --footer-bg-color: #f2f2f25b;
-    --background-color: #f2f2f2;
-    --text-main-color: #333;
-    --text-color: #888888;
-    --text-color-light: #c8c8c8;
-    --cord-color: #fff;
-    --nav-bg-color: #fff;
-    --highlight-color: #ff7200;
-    --shadow-color: rgba(0, 0, 0, 0.1);
+/* 
+自定义变量库
+*/
+
+/* 配色方案 - 亮色模式 */
+@media (prefers-color-scheme: light){
+    :root {
+        --blur-bg-color: hsla(0, 0%, 95%, 0.36);
+        --background-color: hsla(0, 0%, 95%, 1);
+        --background-color-end: hsla(0, 0%, 100%, 0);
+        --text-main-color: hsla(0, 0%, 20%, 1);
+        --text-color: hsla(0, 0%, 53%, 1);
+        --text-color-light: hsla(0, 0%, 78%, 1);
+        --cord-color: hsla(0, 0%, 100%, 1);
+        --nav-bg-color: hsla(0, 0%, 100%, 1);
+        --highlight-color: hsla(29, 100%, 50%, 1);
+        --shadow-color: hsla(0, 0%, 0%, 0.1);
+    }
 }
+/* 配色方案 - 暗色模式 */
 @media (prefers-color-scheme: dark) {
     :root {
-        --footer-bg-color: #3333335b;
-        --background-color: #333;
-        --text-main-color: #fff;
-        --text-color: #ccc;
-        --text-color-light: #666;
-        --cord-color: #222;
-        --nav-bg-color: #222;
-        --highlight-color: #ff7200;
-        --shadow-color: rgba(0, 0, 0, 0.3);
+        --blur-bg-color: hsla(0, 0%, 20%, 0.36);
+        --background-color: hsla(0, 0%, 20%, 1);
+        --background-color-end: hsla(0, 0%, 0%, 0);
+        --text-main-color: hsla(0, 0%, 100%, 1);
+        --text-color: hsla(0, 0%, 80%, 1);
+        --text-color-light: hsla(0, 0%, 40%, 1);
+        --cord-color: hsla(0, 0%, 13%, 1);
+        --nav-bg-color: hsla(0, 0%, 13%, 1);
+        --highlight-color: hsla(29, 100%, 50%, 1);
+        --shadow-color: hsla(0, 0%, 0%, 0.3);
     }
+}
+/* 渐变色 */
+:root {
+    /* 从上到下的渐变 */
+    --gradient-bg: linear-gradient(180deg, var(--background-color) 25%, var(--background-color-end) 100%);
+}
+/* 阴影 */
+:root {
+    --shadow: 0 0 10px 0 var(--shadow-color);
+}
+/* 参数 */
+:root {
+    /* 左右内边距 */
+    --padding-w: 30px;
+    /* 卡片堆横向间距 */
+    --gap-container-w: 20px;
+    /* 卡片堆纵向间距 */
+    --gap-container-h: 20px;
+    /* header logo size */
+    --header-logo-size: 64px;
 }

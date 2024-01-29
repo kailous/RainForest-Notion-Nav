@@ -3,22 +3,10 @@ footer {
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: center;
-    gap: 10px 30px;
     flex-direction: row;
-    padding: 20px 30px;
+    gap: 10px 30px;
     font-size: 12px;
     color: var(--text-color-light);
-    background: var(--footer-bg-color);
-    /* 背景不透明度 */
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    /* 背景模糊 */
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
-    /* Note: backdrop-filter has minimal browser support */
-    z-index: 999;
 }
 footer img {
     height: 18px;

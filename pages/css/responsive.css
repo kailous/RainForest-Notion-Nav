@@ -24,3 +24,11 @@
         flex-basis: calc(100% / 2 - 20px);
     }
 }
+@media screen and (max-width: 410px) {
+    header #title #right,header #nav {
+        display: none;
+    }
+    :root {
+        --padding-w: 15px;
+    }
+}
