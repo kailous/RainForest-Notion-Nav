@@ -56,7 +56,7 @@ p {
     font-size: 10px;
     font-weight: 400;
     color: var(--text-color);
-    line-height: 110%;
+    line-height: 140%;
 }
 span {
     display: block;
@@ -95,12 +95,15 @@ small {
     padding: 30px;
     align-items: stretch;
     align-content: flex-start;
+    transition: all 0.3s ease;
 }
 
 .card {
     display: flex;
     min-width:100px;
-    width: calc(100% / 7 - 13px);
+    width: 100%;
+    flex-basis: calc(100% / 7 - 20px);
+    margin: 0;
     transition: background 0.1s;
     background-color: var(--cord-color);
     box-shadow: 0 1px 3px var(--shadow-color);
@@ -120,19 +123,29 @@ small {
 }
 
 /*宽度小于1200时*/
+@media screen and (max-width: 1440px) {
+    .card {
+        flex-basis: calc(100% / 6 - 20px);
+    }
+}
 @media screen and (max-width: 1200px) {
     .card {
-        width: calc(100% / 3 - 15px);
+        flex-basis: calc(100% / 5 - 20px);
+    }
+}
+@media screen and (max-width: 980px) {
+    .card {
+        flex-basis: calc(100% / 4 - 20px);
     }
 }
 @media screen and (max-width: 900px) {
     .card {
-        width: calc(100% / 2 - 15px);
+        flex-basis: calc(100% / 3 - 20px);
     }
 }
-@media screen and (max-width: 580px) {
+@media screen and (max-width: 740px) {
     .card {
-        width: 100%;
+        flex-basis: calc(100% / 2 - 20px);
     }
 }
 #body header {
@@ -178,7 +191,7 @@ header #right {
 }
 #nav {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: flex-start;
     align-items: center;
     gap: 5px;
@@ -187,10 +200,20 @@ header #right {
 
 #nav button {
     font-size:14px !important;
-    line-height: 150%;
+    width: auto;
+    line-height: 100%;
     border: none;
     background: none;
     color: var(--text-color);
+    padding: 5px 10px;
+    background-color: var(--text-color-light);
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+#nav button:hover {
+    color: var(--text-main-color) !important;
+    background-color: var(--highlight-color);
 }
 /*nav 当前点击后*/
 #nav button:active, #nav button:focus {
