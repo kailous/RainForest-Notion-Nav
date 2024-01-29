@@ -62,19 +62,18 @@ const IndexPage = () => {
             .catch(error => console.error(error));
 
         // 设置响应式内边距
-        const updatePadding = () => {
+        setResponsivePadding();
+
+        // 添加窗口大小变化的事件监听器
+        const handleResize = () => {
             setResponsivePadding();
         };
 
-        // 首次加载时更新一次 padding
-        updatePadding();
-
-        // 添加窗口大小变化的事件监听器
-        window.addEventListener('resize', updatePadding);
+        window.addEventListener('resize', handleResize);
 
         // 组件卸载时移除事件监听器
         return () => {
-            window.removeEventListener('resize', updatePadding);
+            window.removeEventListener('resize', handleResize);
         };
     }, []);
 
