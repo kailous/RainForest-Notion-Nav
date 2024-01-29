@@ -102,17 +102,17 @@ small {
 
 #body header {
     display: flex;
-    margin: 0 auto;
+    /* margin: 0 auto; */
     padding: 15px 30px;
     font-size: 12px;
-    position: fixed;
+    /* position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 999;
+    z-index: 999; */
     background-color: var(--nav-bg-color);
     box-shadow: 0 1px 3px var(--shadow-color);
-    overflow: hidden;
+    /* overflow: hidden; */
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: flex-start;
@@ -137,7 +137,7 @@ header #right {
     padding: 5px 0;
 }
 #body main {
-    margin: 106px 0 auto;
+    /* margin: 106px 0 auto; */
     width: 100%;
     font-size:12px;
 }
