@@ -61,20 +61,23 @@ const IndexPage = () => {
             .then(data => setTitleName(data))
             .catch(error => console.error(error));
 
-        // 设置响应式内边距
+       // 延迟执行 setResponsivePadding 函数
+    const timeoutId = setTimeout(() => {
         setResponsivePadding();
+    }, 600); // 例如，延迟 100 毫秒
 
-        // 添加窗口大小变化的事件监听器
-        const handleResize = () => {
-            setResponsivePadding();
-        };
+    // 添加窗口大小变化的事件监听器
+    const handleResize = () => {
+        setResponsivePadding();
+    };
 
-        window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize);
 
-        // 组件卸载时移除事件监听器
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
+    // 组件卸载时移除事件监听器和清除定时器
+    return () => {
+        clearTimeout(timeoutId);
+        window.removeEventListener('resize', handleResize);
+    };
     }, []);
 
 
