@@ -175,8 +175,9 @@ header #right {
 }
 /*nav 当前点击后*/
 #nav button:active, #nav button:focus {
-    color: var(--highlight-color) !important;
-    border-bottom: 2px solid var(--highlight-color) !important;
+    color: var(--text-main-color) !important;
+    background-color: var(--highlight-color);
+    box-shadow: rgba(255, 114, 0, 0.25) 0px 10px 10px 0px;
 }
 
 #nav em {color: var(--text-color-light) !important;}

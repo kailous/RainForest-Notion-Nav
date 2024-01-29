@@ -64,7 +64,7 @@ const IndexPage = () => {
        // 延迟执行 setResponsivePadding 函数
     const timeoutId = setTimeout(() => {
         setResponsivePadding();
-    }, 600); // 例如，延迟 100 毫秒
+    }, 1000); // 例如，延迟 100 毫秒
 
     // 添加窗口大小变化的事件监听器
     const handleResize = () => {
