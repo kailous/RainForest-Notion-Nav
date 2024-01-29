@@ -6,16 +6,22 @@ h1, h2, p, span, small, a {
     font-family: 'Helvetica Neue', Arial, sans-serif;
 }
 
-html,body,#__next,#body {
+html,body {
     height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 #body, body{
     background: var(--background-color) !important;
-    display: flex;
-    flex-direction: column;
 }
-
+#body {
+    position: relative;
+    min-height: 100%;
+    /* padding-bottom: 120px;
+    padding-top: 106px; */
+    box-sizing: border-box; 
+}
 a {
     text-decoration: none;
     color: var(--text-main-color);
@@ -105,11 +111,11 @@ small {
     /* margin: 0 auto; */
     padding: 15px 30px;
     font-size: 12px;
-    /* position: fixed;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 999; */
+    z-index: 999;
     background-color: var(--nav-bg-color);
     box-shadow: 0 1px 3px var(--shadow-color);
     /* overflow: hidden; */
@@ -233,7 +239,17 @@ footer {
     padding: 30px;
     font-size: 12px;
     color: var(--text-color-light);
-    background: var(--background-color);
+    background: var(--footer-bg-color);
+    /* 背景不透明度 */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /* 背景模糊 */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    /* Note: backdrop-filter has minimal browser support */
+    z-index: 999;
 }
 footer img {
     height: 18px;

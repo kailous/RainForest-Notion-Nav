@@ -1,7 +1,7 @@
 // pages/index.js
 
 import React, { useEffect, useState } from 'react';
-
+import setResponsivePadding from './js/responsive';
 
 const IndexPage = () => {
     const [databaseContent, setDatabaseContent] = useState([]);
@@ -60,6 +60,22 @@ const IndexPage = () => {
             .then(response => response.json())
             .then(data => setTitleName(data))
             .catch(error => console.error(error));
+
+        // 设置响应式内边距
+        const updatePadding = () => {
+            setResponsivePadding();
+        };
+
+        // 首次加载时更新一次 padding
+        updatePadding();
+
+        // 添加窗口大小变化的事件监听器
+        window.addEventListener('resize', updatePadding);
+
+        // 组件卸载时移除事件监听器
+        return () => {
+            window.removeEventListener('resize', updatePadding);
+        };
     }, []);
 
 
