@@ -5,6 +5,7 @@ header {
     padding: 20px var(--padding-w);
     background: var(--gradient-bg);
     box-shadow: 0 10px 20px var(--shadow-color);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 header #title {

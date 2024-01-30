@@ -15,6 +15,7 @@
         --nav-bg-color: hsla(0, 0%, 100%, 1);
         --highlight-color: hsla(29, 100%, 50%, 1);
         --shadow-color: hsla(0, 0%, 0%, 0.1);
+        --glass-border-color:hsla(0, 0%, 100%, 0.2);
     }
 }
 /* 配色方案 - 暗色模式 */
@@ -30,6 +31,7 @@
         --nav-bg-color: hsla(0, 0%, 13%, 1);
         --highlight-color: hsla(29, 100%, 50%, 1);
         --shadow-color: hsla(0, 0%, 0%, 0.3);
+        --glass-border-color:hsla(0, 0%, 100%, 1);
     }
 }
 /* 渐变色 */
