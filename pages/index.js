@@ -112,7 +112,7 @@ const IndexPage = () => {
                 {/* 这里将显示数据库名称 */}
                 <div id='title'>
                     <div id="left">
-                        <img src="/logo.png" alt="图片加载失败" />
+                        <img src="/logo.webp" alt="图片加载失败" />
                         <h1>{titleName && titleName.titleName}<br></br>
                             Nav
                         </h1>
