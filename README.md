@@ -24,27 +24,27 @@ yarn dev
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+在浏览器中打开 [http://localhost:3000](http://localhost:3000) 来查看结果。
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+你可以通过修改 `pages/index.js` 来开始编辑页面。当你编辑文件时，页面会自动更新。
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+[API 路由](https://nextjs.org/docs/api-routes/introduction) 可以在 [http://localhost:3000/api/hello](http://localhost:3000/api/hello) 上访问。这个端点可以在 `pages/api/hello.js` 中编辑。
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+`pages/api` 目录被映射到 `/api/*`。这个目录中的文件被视为 [API 路由](https://nextjs.org/docs/api-routes/introduction)，而不是 React 页面。
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+这个项目使用 [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) 自动优化和加载 Inter，这是一个自定义的 Google 字体。
 
-## Learn More
+## 了解更多
 
-To learn more about Next.js, take a look at the following resources:
+要了解更多关于 Next.js 的信息，可以查看以下资源：
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Next.js 文档](https://nextjs.org/docs) - 了解 Next.js 的特性和 API。
+- [学习 Next.js](https://nextjs.org/learn) - 一个交互式的 Next.js 教程。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+你可以查看 [Next.js 的 GitHub 仓库](https://github.com/vercel/next.js/) - 欢迎你的反馈和贡献！
 
-## Deploy on Vercel
+## 在 Vercel 上部署
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+部署你的 Next.js 应用最简单的方式就是使用 [Vercel 平台](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme)，这是 Next.js 的创建者。
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+查看我们的 [Next.js 部署文档](https://nextjs.org/docs/deployment) 了解更多详情。
