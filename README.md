@@ -8,6 +8,22 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - NOTION_API_KEY: Notion 的 API Key，可以在 Notion 的设置中找到。
 - DATABASE_ID: Notion 数据库的 ID，可以在 Notion 数据库的链接中找到。
 - NAV_NAME: 导航的名称，会显示在网页的标题中。
+- EDGE_CONFIG: Vercel Edge Config 的配置链接，用于在边缘节点上管理和配置项目的运行时设置。
+- OG_DESC: 网页的 Open Graph 描述，通常用于在社交媒体上分享时显示的描述。
+- OG_KEYWORDS: 网页的 Open Graph 关键词，有助于搜索引擎优化。
+- OG_IMG: 网页的 Open Graph 图片 URL，用于在社交媒体上分享时显示的图片。
+- OG_LOGO: 网页的 Open Graph Logo URL，通常用于品牌标识。
+- OG_URL: 网页的 Open Graph URL，指向该网页的链接。
+
+## Notion 模板
+https://www.notion.so/bc70befb9e3341e89890e659dcc56673?v=b942cafbdfd248b8b90c919ebc87830b&pvs=4
+
+数据库说明：
+- Name: 导航站点的名称，通常是站点的标题或名称。
+- Category: 导航站点的分类标签（属性为`多选项`），用于描述站点的类型或所属的领域，例如“新闻”、“科技”、“娱乐”等。
+- Website: 导航站点的网址链接（属性为`URL`）。
+- Icons: 导航站点的图标（属性为`文件`），为了美观我用的是自制svg格式的图标,所以目前只支持自己上传，最好是svg格式，如果希望是链接，需要自行修改代码。
+- Description: 导航站点的简要描述（属性为`文本`），用于介绍站点的主要功能和特点。
 
 ## 部署
 ### Vercel
