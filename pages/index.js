@@ -8,6 +8,7 @@ const IndexPage = () => {
     const [titleName, setTitleName] = useState([]);
     const [uniqueTags, setUniqueTags] = useState([]);
 
+
     // 过滤数据库内容
     const filterDatabaseContent = (tag) => {
         // 如果标签为"全部"，则显示全部内容
@@ -120,7 +121,7 @@ const IndexPage = () => {
                     </div>
                     <div id="right">
                         <p>
-                    {titleName && titleName.titleName} Nav</p>
+                            {titleName && titleName.titleName} Nav</p>
                         <p>Database for Notion
                         </p>
                     </div>
@@ -141,10 +142,14 @@ const IndexPage = () => {
                 <div id="cards-container">
                     {/* 这里将显示数据库内容 */}
                     {databaseContent.results && databaseContent.results.map((page, index) => {
+                        const imageUrl = page.properties.Icons.files && page.properties.Icons.files[0] && page.properties.Icons.files[0].file.url;
                         return (
                             <a href={page.properties.Website.url} target="_blank" className="card" key={index}>
                                 {/* 这里将显示页面名称 */}
-                                <img src={page.properties.Icons.files && page.properties.Icons.files[0] && page.properties.Icons.files[0].file.url} className="card-image" alt="图片加载失败" />
+                                <div className='icons'>
+                                    <img src={imageUrl} className="card-image-shadow" alt="图片加载失败" />
+                                    <img src={imageUrl} className="card-image" alt="图片加载失败" />
+                                </div>
                                 <h2 className="card-title">{page.properties.Name.title[0].plain_text}</h2>
                                 {/* 这里将显示页面分类 */}
                                 <div className="card-tags">
