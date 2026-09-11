@@ -229,8 +229,7 @@ body:has(.saas-modal-overlay) {
   display: flex;
   align-items: center;
   gap: 11px;
-  background: transparent;
-  border: none;
+  background: rgba(255,255,255,0.04);
   border-radius: 9px;
   color: var(--text-color);
   font-size: var(--font-size-nav);
