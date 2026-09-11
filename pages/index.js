@@ -122,7 +122,8 @@ const IndexPage = () => {
                 <img src="/next.svg" alt="图片加载失败" />
                 <a href="https://vercel.com/kailous/rainforest-nav"><img src="/vercel.svg" alt="图片加载失败" /></a>
                 <a href="https://github.com/kailous/RainForest-Nav"><img src="/github.svg" alt="图片加载失败" /></a>
-                <p>Nav for RainForest, developed by Kailous.</p>
+                <p>RainForest Nav</p>
+                <p>Powered by Vercel</p>
             </footer>
         </>
     );
