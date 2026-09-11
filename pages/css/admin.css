@@ -204,8 +204,7 @@ body:has(.saas-modal-overlay) {
 .saas-sidebar-footer {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding: 14px 18px;
+  padding: 8px 12px;
   border-top: 1px solid rgba(255,255,255,0.04);
 }
 
@@ -229,14 +228,14 @@ body:has(.saas-modal-overlay) {
 .saas-logout-btn {
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 8px;
+  gap: 11px;
+  background: transparent;
+  border: none;
+  border-radius: 9px;
   color: var(--text-color);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-nav);
   font-family: inherit;
-  padding: 8px 14px;
+  padding: 9px 14px;
   cursor: pointer;
   transition: all 0.15s;
   width: 100%;
@@ -244,12 +243,11 @@ body:has(.saas-modal-overlay) {
 
 .saas-logout-btn:hover {
   background: rgba(255, 107, 107, 0.08);
-  border-color: rgba(255, 107, 107, 0.15);
   color: #ff6b6b;
 }
 
 .saas-logout-btn svg {
-  opacity: 0.7;
+  opacity: 0.65;
   transition: opacity 0.15s;
 }
 
