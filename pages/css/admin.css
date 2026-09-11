@@ -84,8 +84,8 @@ body:has(.saas-modal-overlay) {
 }
 
 .saas-sidebar-logo-img {
-  width: 42px;
-  height: 42px;
+  width: calc(var(--header-logo-size) * 0.66);
+  height: calc(var(--header-logo-size) * 0.66);
   border-radius: 12px;
   object-fit: cover;
   flex-shrink: 0;
