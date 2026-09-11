@@ -1118,6 +1118,177 @@ body:has(.saas-modal-overlay) {
   font-weight: 450;
 }
 
+/* ===== Change Password Page ===== */
+.pwd-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 28px 36px 36px;
+  max-width: 440px;
+}
+
+.pwd-card {
+  background: var(--blur-bg-color);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.pwd-card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(108,99,255,0.2), rgba(108,99,255,0.08));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-color, #6c63ff);
+  margin-bottom: 20px;
+}
+
+.pwd-card-title {
+  font-size: var(--font-size-lg);
+  font-weight: 650;
+  color: var(--text-main-color);
+  margin: 0 0 8px;
+  letter-spacing: -0.02em;
+}
+
+.pwd-card-desc {
+  font-size: var(--font-size-sm);
+  color: var(--text-color);
+  margin: 0 0 28px;
+  opacity: 0.7;
+}
+
+.pwd-card form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pwd-field {
+  text-align: left;
+}
+
+.pwd-field label {
+  display: block;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  color: var(--text-color);
+  margin-bottom: 8px;
+  letter-spacing: 0.01em;
+}
+
+.pwd-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.03);
+  transition: all 0.2s ease;
+}
+
+.pwd-input-wrap:focus-within {
+  border-color: rgba(108, 99, 255, 0.5);
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.08);
+}
+
+.pwd-input-wrap svg {
+  color: var(--text-color);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+.pwd-input-wrap input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text-main-color);
+  font-size: var(--font-size-sm);
+  font-family: inherit;
+  padding: 0;
+}
+
+.pwd-input-wrap input::placeholder {
+  color: var(--text-color);
+  opacity: 0.4;
+}
+
+.pwd-message {
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: var(--font-size-sm);
+  font-weight: 450;
+  text-align: left;
+}
+
+.pwd-message-error {
+  background: rgba(255, 107, 107, 0.08);
+  border: 1px solid rgba(255, 107, 107, 0.15);
+  color: #ff6b6b;
+}
+
+.pwd-message-success {
+  background: rgba(74, 222, 128, 0.08);
+  border: 1px solid rgba(74, 222, 128, 0.15);
+  color: #4ade80;
+}
+
+.pwd-spinner {
+  animation: pwd-spin 1s linear infinite;
+}
+
+@keyframes pwd-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.pwd-tip-card {
+  display: flex;
+  gap: 14px;
+  padding: 18px 20px;
+  background: rgba(108, 99, 255, 0.04);
+  border: 1px solid rgba(108, 99, 255, 0.08);
+  border-radius: 12px;
+}
+
+.pwd-tip-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: rgba(108, 99, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-color, #6c63ff);
+  flex-shrink: 0;
+}
+
+.pwd-tip-content h4 {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-main-color);
+  margin: 0 0 4px;
+}
+
+.pwd-tip-content p {
+  font-size: var(--font-size-xs);
+  color: var(--text-color);
+  margin: 0;
+  opacity: 0.7;
+  line-height: 1.5;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
   .saas-sidebar {
@@ -1152,5 +1323,12 @@ body:has(.saas-modal-overlay) {
   }
   .saas-table-actions {
     opacity: 1;
+  }
+  .pwd-card-wrapper {
+    padding: 20px 20px;
+    max-width: 100%;
+  }
+  .pwd-card {
+    padding: 24px 20px;
   }
 }

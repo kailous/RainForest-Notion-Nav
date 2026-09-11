@@ -316,8 +316,8 @@ const AdminPage = () => {
               className={`saas-nav-item${activeNav === 'settings' ? ' active' : ''}`}
               onClick={() => setActiveNav('settings')}
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
-              系统设置
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              修改密码
             </a>
           </nav>
           <div className="saas-sidebar-stats">
@@ -429,46 +429,87 @@ const AdminPage = () => {
 
           {activeNav === 'settings' && (
             <div className="saas-settings">
-              <div className="saas-settings-section">
-                <h3>修改密码</h3>
-                <p className="saas-settings-desc">更新管理后台的登录密码</p>
-                <form className="saas-settings-form" onSubmit={handleChangePassword}>
-                  <div className="saas-field">
-                    <label>当前密码</label>
-                    <input
-                      type="password"
-                      value={pwdForm.current}
-                      onChange={(e) => setPwdForm({ ...pwdForm, current: e.target.value })}
-                      placeholder="输入当前密码"
-                      required
-                    />
+              <div className="saas-page-header">
+                <div>
+                  <h2 className="saas-page-title">修改密码</h2>
+                  <p className="saas-page-subtitle">更新管理后台的登录密码</p>
+                </div>
+              </div>
+
+              <div className="pwd-card-wrapper">
+                <div className="pwd-card">
+                  <div className="pwd-card-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                   </div>
-                  <div className="saas-field">
-                    <label>新密码</label>
-                    <input
-                      type="password"
-                      value={pwdForm.newPwd}
-                      onChange={(e) => setPwdForm({ ...pwdForm, newPwd: e.target.value })}
-                      placeholder="输入新密码（至少 6 位）"
-                      required
-                    />
+                  <h3 className="pwd-card-title">更改密码</h3>
+                  <p className="pwd-card-desc">请确保新密码至少包含 6 个字符</p>
+                  
+                  <form onSubmit={handleChangePassword}>
+                    <div className="pwd-field">
+                      <label>当前密码</label>
+                      <div className="pwd-input-wrap">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        <input
+                          type="password"
+                          value={pwdForm.current}
+                          onChange={(e) => setPwdForm({ ...pwdForm, current: e.target.value })}
+                          placeholder="输入当前密码"
+                          required
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="pwd-field">
+                      <label>新密码</label>
+                      <div className="pwd-input-wrap">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        <input
+                          type="password"
+                          value={pwdForm.newPwd}
+                          onChange={(e) => setPwdForm({ ...pwdForm, newPwd: e.target.value })}
+                          placeholder="输入新密码"
+                          required
+                        />
+                      </div>
+                    </div>
+                    
+                    <div className="pwd-field">
+                      <label>确认新密码</label>
+                      <div className="pwd-input-wrap">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        <input
+                          type="password"
+                          value={pwdForm.confirm}
+                          onChange={(e) => setPwdForm({ ...pwdForm, confirm: e.target.value })}
+                          placeholder="再次输入新密码"
+                          required
+                        />
+                      </div>
+                    </div>
+                    
+                    {pwdError && <div className="pwd-message pwd-message-error">{pwdError}</div>}
+                    {pwdSuccess && <div className="pwd-message pwd-message-success">{pwdSuccess}</div>}
+                    
+                    <button type="submit" className="saas-btn-primary saas-btn-full" disabled={pwdSaving}>
+                      {pwdSaving ? (
+                        <>
+                          <svg className="pwd-spinner" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" strokeOpacity="0.25"/><path d="M12 2a10 10 0 0 1 10 10" strokeLinecap="round"/></svg>
+                          修改中...
+                        </>
+                      ) : '确认修改'}
+                    </button>
+                  </form>
+                </div>
+                
+                <div className="pwd-tip-card">
+                  <div className="pwd-tip-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
                   </div>
-                  <div className="saas-field">
-                    <label>确认新密码</label>
-                    <input
-                      type="password"
-                      value={pwdForm.confirm}
-                      onChange={(e) => setPwdForm({ ...pwdForm, confirm: e.target.value })}
-                      placeholder="再次输入新密码"
-                      required
-                    />
+                  <div className="pwd-tip-content">
+                    <h4>安全提示</h4>
+                    <p>修改密码后需要重新登录。建议使用包含字母、数字和特殊字符的强密码。</p>
                   </div>
-                  {pwdError && <p className="saas-error">{pwdError}</p>}
-                  {pwdSuccess && <p className="saas-success">{pwdSuccess}</p>}
-                  <button type="submit" className="saas-btn-primary" disabled={pwdSaving}>
-                    {pwdSaving ? '修改中...' : '修改密码'}
-                  </button>
-                </form>
+                </div>
               </div>
             </div>
           )}
