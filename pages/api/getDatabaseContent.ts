@@ -9,7 +9,8 @@ async function getData(): Promise<{ entries: any[] }> {
   try {
     const { blobs } = await list({ prefix: BLOB_PREFIX });
     if (blobs.length > 0) {
-      const res = await fetch(blobs[0].url);
+      const newest = blobs.sort((a, b) => b.uploadedAt.getTime() - a.uploadedAt.getTime())[0];
+      const res = await fetch(newest.url);
       return await res.json();
     }
   } catch (e) {
