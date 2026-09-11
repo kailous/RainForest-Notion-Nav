@@ -4,11 +4,11 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 import { getAuth } from './_auth';
 
-const BLOB_KEY = 'nav-data.json';
+const BLOB_PREFIX = 'nav-data';
 
 async function getData(): Promise<{ entries: any[] }> {
   try {
-    const { blobs } = await list({ prefix: BLOB_KEY });
+    const { blobs } = await list({ prefix: BLOB_PREFIX });
     if (blobs.length > 0) {
       const res = await fetch(blobs[0].url);
       return await res.json();
@@ -21,7 +21,7 @@ async function getData(): Promise<{ entries: any[] }> {
 }
 
 async function saveData(data: { entries: any[] }): Promise<void> {
-  await put(BLOB_KEY, JSON.stringify(data), {
+  await put(`${BLOB_PREFIX}.json`, JSON.stringify(data), {
     access: 'public',
     contentType: 'application/json',
   });

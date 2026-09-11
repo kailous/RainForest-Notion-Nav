@@ -3,11 +3,11 @@ import { list } from '@vercel/blob';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
-const BLOB_KEY = 'nav-data.json';
+const BLOB_PREFIX = 'nav-data';
 
 async function getData(): Promise<{ entries: any[] }> {
   try {
-    const { blobs } = await list({ prefix: BLOB_KEY });
+    const { blobs } = await list({ prefix: BLOB_PREFIX });
     if (blobs.length > 0) {
       const res = await fetch(blobs[0].url);
       return await res.json();
