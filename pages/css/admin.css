@@ -22,7 +22,6 @@ body:has(.saas-modal-overlay),
   border: none;
   border-radius: 0;
   padding: 0;
-  font-size: inherit !important;
   min-height: auto !important;
   display: inline !important;
   width: auto;
@@ -35,7 +34,6 @@ body:has(.saas-modal-overlay),
 .saas-sidebar-stat-label,
 .saas-icon-preview-label {
   display: inline !important;
-  font-size: inherit !important;
   min-height: auto !important;
   border: none !important;
   border-radius: 0 !important;
@@ -97,14 +95,6 @@ body:has(.saas-modal-overlay),
   border-radius: 12px;
   object-fit: cover;
   flex-shrink: 0;
-}
-
-.saas-sidebar-title {
-  font-weight: 650;
-  font-size: 15.5px;
-  color: var(--text-main-color);
-  letter-spacing: -0.02em;
-  line-height: 1.25;
 }
 
 .saas-nav {
