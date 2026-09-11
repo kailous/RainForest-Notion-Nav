@@ -193,7 +193,7 @@ body:has(.saas-modal-overlay) {
 }
 
 .saas-sidebar-stat-label {
-  font-size: var(--font-size-tag) !important;
+  font-size: var(--font-size-sm) !important;
   color: var(--text-color) !important;
   font-weight: 400;
   opacity: 0.75;
