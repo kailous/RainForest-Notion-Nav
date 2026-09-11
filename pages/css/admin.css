@@ -1125,6 +1125,7 @@ body:has(.saas-modal-overlay) {
   gap: 20px;
   padding: 28px 36px 36px;
   max-width: 440px;
+  margin: 0 auto;
 }
 
 .pwd-card {
