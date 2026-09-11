@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { list, put } from '@vercel/blob';
+import { list } from '@vercel/blob';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
@@ -18,13 +18,6 @@ async function getData(): Promise<{ entries: any[] }> {
   }
   const localPath = join(process.cwd(), 'data', 'data.json');
   return JSON.parse(readFileSync(localPath, 'utf-8'));
-}
-
-async function saveData(data: { entries: any[] }): Promise<void> {
-  await put(`${BLOB_PREFIX}.json`, JSON.stringify(data), {
-    access: 'public',
-    contentType: 'application/json',
-  });
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {

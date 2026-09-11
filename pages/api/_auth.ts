@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { list, put } from '@vercel/blob';
+import { list } from '@vercel/blob';
 
 async function getCurrentPassword(): Promise<string | null> {
   try {
