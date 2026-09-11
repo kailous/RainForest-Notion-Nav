@@ -204,30 +204,9 @@ body:has(.saas-modal-overlay) {
 .saas-sidebar-footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 14px 18px;
   border-top: 1px solid rgba(255,255,255,0.04);
-}
-
-.saas-user-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: var(--font-size-sm);
-  color: var(--text-color);
-}
-
-.saas-user-avatar {
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, rgba(108,99,255,0.2), rgba(108,99,255,0.08));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: var(--font-size-xs);
-  font-weight: 600;
-  color: var(--accent-color, #6c63ff);
 }
 
 .saas-logout-icon {
