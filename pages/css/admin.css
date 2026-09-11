@@ -3,10 +3,7 @@
 /* Force dark theme for admin panel — applied on body to override :root from root.css */
 body:has(.saas-layout),
 body:has(.saas-login),
-body:has(.saas-modal-overlay),
-.saas-layout,
-.saas-login,
-.saas-modal-overlay {
+body:has(.saas-modal-overlay) {
   --blur-bg-color: hsla(230, 15%, 12%, 0.95) !important;
   --background-color: hsla(230, 15%, 8%, 1) !important;
   --text-main-color: hsla(0, 0%, 95%, 1) !important;
@@ -188,11 +185,6 @@ body:has(.saas-modal-overlay),
   letter-spacing: -0.03em;
   line-height: 1;
   font-variant-numeric: tabular-nums;
-  border: none;
-  border-radius: 0;
-  padding: 0;
-  min-height: auto !important;
-  display: inline;
 }
 
 .saas-sidebar-stat-label {
@@ -201,11 +193,6 @@ body:has(.saas-modal-overlay),
   font-weight: 400;
   opacity: 0.75;
   letter-spacing: 0.02em;
-  border: none;
-  border-radius: 0;
-  padding: 0;
-  min-height: auto !important;
-  display: inline;
 }
 
 /* ===== Sidebar Footer ===== */
@@ -1017,10 +1004,6 @@ body:has(.saas-modal-overlay),
   font-size: 12px !important;
   color: var(--text-color);
   opacity: 0.6;
-  border: none !important;
-  border-radius: 0 !important;
-  padding: 0 !important;
-  min-height: auto !important;
 }
 
 /* ===== Login Page ===== */
