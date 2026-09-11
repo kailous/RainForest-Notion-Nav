@@ -49,7 +49,7 @@ body:has(.saas-modal-overlay),
   font-size: 21px !important;
   line-height: 1.25;
   letter-spacing: -0.02em;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Urbanist', sans-serif !important;
 }
 
 .saas-sidebar-stat-value {
