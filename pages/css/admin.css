@@ -1,6 +1,12 @@
 /* ===== Modern Admin Design System ===== */
 
-/* Force dark theme for admin panel — applied on body to override :root from root.css */
+/* Admin panel dark theme - use :root to inherit from frontend variables */
+/* Only define accent-color and overrides that differ from frontend */
+:root {
+  --accent-color: #6c63ff !important;
+}
+
+/* Override :root variables for admin dark theme when body has admin classes */
 body:has(.saas-layout),
 body:has(.saas-login),
 body:has(.saas-modal-overlay) {
@@ -8,7 +14,6 @@ body:has(.saas-modal-overlay) {
   --background-color: hsla(230, 15%, 8%, 1) !important;
   --text-main-color: hsla(0, 0%, 95%, 1) !important;
   --text-color: hsla(0, 0%, 85%, 1) !important;
-  --accent-color: #6c63ff !important;
   --card-bg-color: hsla(230, 15%, 14%, 1) !important;
 }
 
