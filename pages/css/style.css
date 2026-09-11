@@ -14,6 +14,8 @@
 @import url('root.css');
 /* 引入responsive.css */
 @import url('responsive.css');
+/* 引入admin.css */
+@import url('admin.css');
 
 /* 默认字体 */
 body,h1, h2, p, span, small, a {

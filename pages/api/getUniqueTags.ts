@@ -1,59 +1,39 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Client } from '@notionhq/client';
-import * as dotenv from 'dotenv';
+import { list } from '@vercel/blob';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
-// properties
+const BLOB_KEY = 'nav-data.json';
 
-dotenv.config();
-
-const notion = new Client({ auth: process.env.NOTION_API_KEY });
-
-// 使用内存对象作为简单的缓存存储
-let uniqueTagsCache: any = null; // 根据实际情况设置缓存的类型
+async function getData(): Promise<{ entries: any[] }> {
+  try {
+    const { blobs } = await list({ prefix: BLOB_KEY });
+    if (blobs.length > 0) {
+      const res = await fetch(blobs[0].url);
+      return await res.json();
+    }
+  } catch (e) {
+    console.warn('Failed to read from Vercel Blob, falling back to local file:', e);
+  }
+  const localPath = join(process.cwd(), 'data', 'data.json');
+  return JSON.parse(readFileSync(localPath, 'utf-8'));
+}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
-
-    // 处理 GET 请求
-    if (req.method === 'GET') {
-        // 检查缓存是否存在
-        if (uniqueTagsCache) {
-            // 如果缓存存在，则直接返回缓存内容
-            res.status(200).json(uniqueTagsCache);
-        } else {
-            try {
-                // 从 Notion API 获取数据库内容
-                const response = await notion.databases.query({
-                    database_id: process.env.DATABASE_ID!,
-                });
-
-                // 提取标签名称列表并去重
-                const tagNames: string[] = [];
-                response.results.forEach((page) => {
-                    if ((page as any).properties && (page as any).properties.Category && (page as any).properties.Category.multi_select) {
-                        (page as any).properties.Category.multi_select.forEach((tag: { name: string }) => {
-                            if (!tagNames.includes(tag.name)) {
-                                tagNames.push(tag.name);
-                            }
-                        });
-                    }
-                });
-
-                // 将去重后的标签名称列表存入缓存
-                uniqueTagsCache = tagNames;
-                // 返回去重后的标签名称列表
-                res.status(200).json(tagNames);
-            } catch (error) {
-                // 处理错误
-                console.error(error);
-                res.status(500).json({ error: 'Failed to get unique tags' });
-            }
-        }
-    } else {
-        res.setHeader('Allow', 'GET');
-        res.status(405).json({ message: 'Method not allowed' });
+  if (req.method === 'GET') {
+    try {
+      const data = await getData();
+      const tagSet = new Set<string>();
+      data.entries.forEach((entry: any) => {
+        (entry.categories || []).forEach((tag: string) => tagSet.add(tag));
+      });
+      res.status(200).json(Array.from(tagSet));
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Failed to get unique tags' });
     }
-}
-// 清除缓存
-export async function clearCache(): Promise<void> {
-    uniqueTagsCache = null;
+  } else {
+    res.setHeader('Allow', 'GET');
+    res.status(405).json({ message: 'Method not allowed' });
+  }
 }

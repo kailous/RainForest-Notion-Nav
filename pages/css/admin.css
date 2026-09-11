@@ -1,0 +1,314 @@
+.admin-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--background-color);
+}
+
+.admin-login form {
+  background: var(--blur-bg-color);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 40px;
+  width: 320px;
+  text-align: center;
+}
+
+.admin-login h2 {
+  color: var(--text-main-color);
+  margin-bottom: 24px;
+  font-size: 20px;
+}
+
+.admin-login input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.05);
+  color: var(--text-main-color);
+  font-size: 14px;
+  margin-bottom: 12px;
+  outline: none;
+}
+
+.admin-login input:focus {
+  border-color: var(--accent-color, #6c63ff);
+}
+
+.admin-login button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent-color, #6c63ff);
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.admin-login .error {
+  color: #ff6b6b;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.admin-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 80px 20px 40px;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.admin-header h1 {
+  color: var(--text-main-color);
+  font-size: 24px;
+}
+
+.logout-btn {
+  padding: 6px 16px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-color);
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.admin-message {
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: rgba(108, 99, 255, 0.15);
+  color: var(--accent-color, #6c63ff);
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.admin-form {
+  background: var(--blur-bg-color);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+.admin-form h3 {
+  color: var(--text-main-color);
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 12px;
+  color: var(--text-color);
+  margin-bottom: 6px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="url"] {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.05);
+  color: var(--text-main-color);
+  font-size: 13px;
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: var(--accent-color, #6c63ff);
+}
+
+.icon-upload-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon-upload-row input {
+  flex: 1;
+}
+
+.icon-preview {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.upload-btn {
+  padding: 8px 14px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.05);
+  color: var(--text-main-color);
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+}
+
+.upload-btn input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.form-actions button {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent-color, #6c63ff);
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: rgba(255,255,255,0.1) !important;
+  color: var(--text-color) !important;
+}
+
+.admin-list h3 {
+  color: var(--text-main-color);
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.entry-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background: var(--blur-bg-color);
+  backdrop-filter: blur(10px);
+}
+
+.entry-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.05);
+  flex-shrink: 0;
+}
+
+.entry-icon img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.entry-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.entry-info strong {
+  display: block;
+  color: var(--text-main-color);
+  font-size: 14px;
+}
+
+.entry-url {
+  display: block;
+  font-size: 11px;
+  color: var(--text-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.entry-tags {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+
+.entry-tags .tag {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: rgba(108, 99, 255, 0.15);
+  color: var(--accent-color, #6c63ff);
+}
+
+.entry-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.entry-actions button {
+  padding: 6px 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-color);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.entry-actions .delete-btn {
+  color: #ff6b6b;
+  border-color: rgba(255, 107, 107, 0.3);
+}
+
+@media (max-width: 600px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  .entry-card {
+    flex-wrap: wrap;
+  }
+  .entry-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+.card-icon-placeholder {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
