@@ -5,7 +5,7 @@ footer {
     align-items: center;
     flex-direction: row;
     gap: 10px 30px;
-    font-size: 12px;
+    font-size: var(--font-size-xs);
     color: var(--text-color-light);
 }
 footer img {

@@ -37,7 +37,7 @@
         }
     header #nav .nav-button {
         white-space: nowrap !important;
-        font-size: 16px !important;
+        font-size: var(--font-size-md) !important;
         padding: 6px 12px !important;
     }
     :root {

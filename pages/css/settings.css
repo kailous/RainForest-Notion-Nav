@@ -24,7 +24,7 @@
     gap: 10px;
 }
 #Settings form label {
-    font-size: 10px;
+    font-size: var(--font-size-tag);
     width: 100%;
     display: flex;
     justify-content: space-between;

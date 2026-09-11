@@ -27,7 +27,7 @@ header #title #left img {
 header #title #left h1 {
     display: flex;
     align-items: center;
-    font-size: 21px;
+    font-size: var(--font-size-title);
     font-weight: 800;
     color: var(--text-main-color);
 }
@@ -48,7 +48,7 @@ header #title #left #refresh-button:hover:after {
     content: "同步数据";
     margin-left: 34px;
     padding: 4px 8px;
-    font-size: 10px;
+    font-size: var(--font-size-tag);
     color: #fff;
     background-color: var(--highlight-color);
     white-space: nowrap;
@@ -71,7 +71,7 @@ header #nav {
 }
 
 header #nav .nav-button {
-    font-size: 14px;
+    font-size: var(--font-size-base);
     border: none;
     color: var(--text-color);
     padding: 5px 10px;

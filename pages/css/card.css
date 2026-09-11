@@ -51,14 +51,14 @@ a.card:hover {
 }
 
 h2 {
-    font-size: 20px;
+    font-size: var(--font-size-lg);
     font-weight: 800;
 }
 
 span {
     display: block;
-    font-size: 8px !important;
-    min-height: 8px !important;
+    font-size: var(--font-size-micro) !important;
+    min-height: var(--font-size-micro) !important;
     font-weight: 400;
     border: 1px solid var(--text-color-light);
     color: var(--text-color-light);
@@ -68,7 +68,7 @@ span {
 }
 
 p {
-    font-size: 10px;
+    font-size: var(--font-size-tag);
     font-weight: 400;
     color: var(--text-color);
     line-height: 140%;
