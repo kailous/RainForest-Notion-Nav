@@ -8,11 +8,21 @@ const AdminPage = () => {
   const [entries, setEntries] = useState([]);
   const [editingEntry, setEditingEntry] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+  const [activeNav, setActiveNav] = useState('entries');
   const [form, setForm] = useState({ name: '', url: '', description: '', categories: '', iconUrl: '' });
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [pwdForm, setPwdForm] = useState({ current: '', newPwd: '', confirm: '' });
+  const [pwdSaving, setPwdSaving] = useState(false);
+  const [pwdError, setPwdError] = useState('');
+  const [pwdSuccess, setPwdSuccess] = useState('');
+  const [tagInput, setTagInput] = useState('');
+  const [categoryTags, setCategoryTags] = useState([]);
+  const [svgMode, setSvgMode] = useState('upload');
+  const [svgCode, setSvgCode] = useState('');
 
   const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
 
@@ -48,20 +58,27 @@ const AdminPage = () => {
     }
   };
 
-  const handleUploadIcon = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    if (!file.name.toLowerCase().endsWith('.svg')) {
-      setMessage('只支持 SVG 文件');
-      return;
+  const handleUploadIcon = async (e, pastedContent, pastedFilename) => {
+    let text, filename;
+    if (pastedContent) {
+      text = pastedContent;
+      filename = pastedFilename || 'pasted-icon.svg';
+    } else {
+      const file = e.target.files[0];
+      if (!file) return;
+      if (!file.name.toLowerCase().endsWith('.svg')) {
+        setMessage('只支持 SVG 文件');
+        return;
+      }
+      text = await file.text();
+      filename = file.name;
     }
     setUploading(true);
     try {
-      const text = await file.text();
       const res = await fetch('/api/uploadIcon', {
         method: 'POST',
         headers,
-        body: JSON.stringify({ filename: file.name, content: text }),
+        body: JSON.stringify({ filename, content: text }),
       });
       if (res.ok) {
         const data = await res.json();
@@ -74,15 +91,14 @@ const AdminPage = () => {
       setMessage('上传出错');
     }
     setUploading(false);
-    e.target.value = '';
+    if (e && e.target) e.target.value = '';
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
     setMessage('');
-    const categories = form.categories.split(/[,，]/).map(s => s.trim()).filter(Boolean);
-    const payload = { ...form, categories };
+    const payload = { ...form, categories: categoryTags };
     try {
       if (editingEntry) {
         const res = await fetch('/api/manageData', {
@@ -123,6 +139,10 @@ const AdminPage = () => {
       categories: (entry.categories || []).join(', '),
       iconUrl: entry.iconUrl || '',
     });
+    setCategoryTags(entry.categories || []);
+    setTagInput('');
+    setSvgMode('upload');
+    setSvgCode('');
     setShowModal(true);
   };
 
@@ -142,18 +162,100 @@ const AdminPage = () => {
   const handleCancel = () => {
     setEditingEntry(null);
     setForm({ name: '', url: '', description: '', categories: '', iconUrl: '' });
+    setCategoryTags([]);
+    setTagInput('');
+    setSvgMode('upload');
+    setSvgCode('');
     setShowModal(false);
   };
 
   const handleAddNew = () => {
     setEditingEntry(null);
     setForm({ name: '', url: '', description: '', categories: '', iconUrl: '' });
+    setCategoryTags([]);
+    setTagInput('');
+    setSvgMode('upload');
+    setSvgCode('');
     setShowModal(true);
+  };
+
+  const handleAddTag = (value) => {
+    const tag = value.trim();
+    if (tag && !categoryTags.includes(tag)) {
+      setCategoryTags([...categoryTags, tag]);
+    }
+    setTagInput('');
+  };
+
+  const handleRemoveTag = (index) => {
+    setCategoryTags(categoryTags.filter((_, i) => i !== index));
+  };
+
+  const handleTagKeyDown = (e) => {
+    if (e.key === 'Enter' || e.key === ',') {
+      e.preventDefault();
+      handleAddTag(tagInput);
+    } else if (e.key === 'Backspace' && !tagInput && categoryTags.length > 0) {
+      setCategoryTags(categoryTags.slice(0, -1));
+    }
+  };
+
+  const handlePasteSvg = () => {
+    if (!svgCode.trim()) {
+      setMessage('请粘贴 SVG 代码');
+      return;
+    }
+    handleUploadIcon(null, svgCode.trim(), 'pasted-icon.svg');
   };
 
   const handleLogout = () => {
     setToken(null);
     sessionStorage.removeItem('admin_token');
+  };
+
+  const handleChangePassword = async (e) => {
+    e.preventDefault();
+    setPwdError('');
+    setPwdSuccess('');
+    if (pwdForm.newPwd !== pwdForm.confirm) {
+      setPwdError('两次输入的新密码不一致');
+      return;
+    }
+    if (pwdForm.newPwd.length < 6) {
+      setPwdError('新密码至少 6 位');
+      return;
+    }
+    setPwdSaving(true);
+    try {
+      const res = await fetch('/api/_auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: pwdForm.current }),
+      });
+      if (!res.ok) {
+        setPwdError('当前密码错误');
+        setPwdSaving(false);
+        return;
+      }
+      const updateRes = await fetch('/api/changePassword', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ currentPassword: pwdForm.current, newPassword: pwdForm.newPwd }),
+      });
+      if (updateRes.ok) {
+        setPwdSuccess('密码修改成功，请使用新密码重新登录');
+        setPwdForm({ current: '', newPwd: '', confirm: '' });
+        setTimeout(() => {
+          handleLogout();
+        }, 2000);
+      } else {
+        const data = await updateRes.json();
+        setPwdError(data.error || '修改失败');
+      }
+    } catch (err) {
+      setPwdError('网络错误');
+    }
+    setPwdSaving(false);
   };
 
   const filteredEntries = entries.filter(entry =>
@@ -170,7 +272,7 @@ const AdminPage = () => {
         <Head><title>管理登录 - RainForest Nav</title></Head>
         <div className="saas-login">
           <div className="saas-login-card">
-            <div className="saas-login-logo">RF</div>
+            <img src="/logo.webp" alt="RainForest" className="saas-login-logo-img" />
             <h2>RainForest Nav</h2>
             <p className="saas-login-subtitle">导航管理后台</p>
             <form onSubmit={handleLogin}>
@@ -199,38 +301,52 @@ const AdminPage = () => {
       <div className="saas-layout">
         <aside className="saas-sidebar">
           <div className="saas-sidebar-header">
-            <div className="saas-sidebar-logo">RF</div>
-            <span className="saas-sidebar-title">RainForest</span>
+            <img src="/logo.webp" alt="RainForest" className="saas-sidebar-logo-img" />
+            <span className="saas-sidebar-title">RainForest<br />Nav</span>
           </div>
           <nav className="saas-nav">
-            <a className="saas-nav-item active">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <div className="saas-nav-section-label">菜单</div>
+            <a
+              className={`saas-nav-item${activeNav === 'entries' ? ' active' : ''}`}
+              onClick={() => { setActiveNav('entries'); setShowSettings(false); }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
               导航管理
             </a>
+            <a
+              className={`saas-nav-item${activeNav === 'settings' ? ' active' : ''}`}
+              onClick={() => { setActiveNav('settings'); setShowSettings(true); }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+              系统设置
+            </a>
           </nav>
+          <div className="saas-sidebar-stats">
+            <div className="saas-sidebar-stat">
+              <span className="saas-sidebar-stat-value">{entries.length}</span>
+              <span className="saas-sidebar-stat-label">条目</span>
+            </div>
+            <div className="saas-sidebar-stat">
+              <span className="saas-sidebar-stat-value">{uniqueTags.length}</span>
+              <span className="saas-sidebar-stat-label">分类</span>
+            </div>
+            <div className="saas-sidebar-stat">
+              <span className="saas-sidebar-stat-value">{entries.filter(e => e.iconUrl).length}</span>
+              <span className="saas-sidebar-stat-label">图标</span>
+            </div>
+          </div>
           <div className="saas-sidebar-footer">
             <div className="saas-user-info">
               <div className="saas-user-avatar">A</div>
               <span>管理员</span>
             </div>
             <button className="saas-logout-icon" onClick={handleLogout} title="退出登录">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
             </button>
           </div>
         </aside>
 
         <main className="saas-main">
-          <header className="saas-topbar">
-            <div>
-              <h1 className="saas-page-title">导航管理</h1>
-              <p className="saas-page-desc">管理所有导航站点条目</p>
-            </div>
-            <button className="saas-btn-primary" onClick={handleAddNew}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              添加条目
-            </button>
-          </header>
-
           {message && (
             <div className="saas-toast">
               {message}
@@ -238,81 +354,125 @@ const AdminPage = () => {
             </div>
           )}
 
-          <div className="saas-stats">
-            <div className="saas-stat-card">
-              <span className="saas-stat-value">{entries.length}</span>
-              <span className="saas-stat-label">总条目数</span>
-            </div>
-            <div className="saas-stat-card">
-              <span className="saas-stat-value">{uniqueTags.length}</span>
-              <span className="saas-stat-label">分类标签</span>
-            </div>
-            <div className="saas-stat-card">
-              <span className="saas-stat-value">{entries.filter(e => e.iconUrl).length}</span>
-              <span className="saas-stat-label">已设图标</span>
-            </div>
-          </div>
+          {activeNav === 'entries' && (
+            <>
+              <div className="saas-page-header">
+                <div>
+                  <h2 className="saas-page-title">导航管理</h2>
+                  <p className="saas-page-subtitle">管理所有导航条目和分类</p>
+                </div>
+                <div className="saas-page-actions">
+                  <div className="saas-search">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input
+                      type="text"
+                      placeholder="搜索..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                  </div>
+                  <button className="saas-btn-primary" onClick={handleAddNew}>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    添加条目
+                  </button>
+                </div>
+              </div>
+              <div className="saas-table-wrapper">
+                <table className="saas-table">
+                  <thead>
+                    <tr>
+                      <th style={{ width: 52 }}></th>
+                      <th>名称</th>
+                      <th>链接</th>
+                      <th>分类</th>
+                      <th>描述</th>
+                      <th style={{ width: 100 }}>操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredEntries.map((entry) => (
+                      <tr key={entry.id}>
+                        <td>
+                          <div className="saas-table-icon">
+                            {entry.iconUrl ? <img src={entry.iconUrl} alt="" /> : <span>—</span>}
+                          </div>
+                        </td>
+                        <td><strong>{entry.name}</strong></td>
+                        <td><a href={entry.url} target="_blank" rel="noopener noreferrer" className="saas-link">{entry.url.replace(/^https?:\/\//, '').replace(/\/$/, '')}</a></td>
+                        <td>
+                          <div className="saas-table-tags">
+                            {(entry.categories || []).map((tag, i) => (
+                              <span className="saas-tag" key={i}>{tag}</span>
+                            ))}
+                          </div>
+                        </td>
+                        <td className="saas-table-desc">{entry.description || '—'}</td>
+                        <td>
+                          <div className="saas-table-actions">
+                            <button className="saas-action-btn" onClick={() => handleEdit(entry)} title="编辑">
+                              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                            </button>
+                            <button className="saas-action-btn saas-action-danger" onClick={() => handleDelete(entry.id)} title="删除">
+                              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                    {filteredEntries.length === 0 && (
+                      <tr><td colSpan="6" className="saas-empty">暂无数据</td></tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          )}
 
-          <div className="saas-table-wrapper">
-            <div className="saas-table-header">
-              <h3>所有条目</h3>
-              <div className="saas-search">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                <input
-                  type="text"
-                  placeholder="搜索名称、描述、标签..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
+          {activeNav === 'settings' && (
+            <div className="saas-settings">
+              <div className="saas-settings-section">
+                <h3>修改密码</h3>
+                <p className="saas-settings-desc">更新管理后台的登录密码</p>
+                <form className="saas-settings-form" onSubmit={handleChangePassword}>
+                  <div className="saas-field">
+                    <label>当前密码</label>
+                    <input
+                      type="password"
+                      value={pwdForm.current}
+                      onChange={(e) => setPwdForm({ ...pwdForm, current: e.target.value })}
+                      placeholder="输入当前密码"
+                      required
+                    />
+                  </div>
+                  <div className="saas-field">
+                    <label>新密码</label>
+                    <input
+                      type="password"
+                      value={pwdForm.newPwd}
+                      onChange={(e) => setPwdForm({ ...pwdForm, newPwd: e.target.value })}
+                      placeholder="输入新密码（至少 6 位）"
+                      required
+                    />
+                  </div>
+                  <div className="saas-field">
+                    <label>确认新密码</label>
+                    <input
+                      type="password"
+                      value={pwdForm.confirm}
+                      onChange={(e) => setPwdForm({ ...pwdForm, confirm: e.target.value })}
+                      placeholder="再次输入新密码"
+                      required
+                    />
+                  </div>
+                  {pwdError && <p className="saas-error">{pwdError}</p>}
+                  {pwdSuccess && <p className="saas-success">{pwdSuccess}</p>}
+                  <button type="submit" className="saas-btn-primary" disabled={pwdSaving}>
+                    {pwdSaving ? '修改中...' : '修改密码'}
+                  </button>
+                </form>
               </div>
             </div>
-            <table className="saas-table">
-              <thead>
-                <tr>
-                  <th style={{ width: 44 }}></th>
-                  <th>名称</th>
-                  <th>链接</th>
-                  <th>分类</th>
-                  <th>描述</th>
-                  <th style={{ width: 120 }}>操作</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredEntries.map((entry) => (
-                  <tr key={entry.id}>
-                    <td>
-                      <div className="saas-table-icon">
-                        {entry.iconUrl ? <img src={entry.iconUrl} alt="" /> : <span>—</span>}
-                      </div>
-                    </td>
-                    <td><strong>{entry.name}</strong></td>
-                    <td><a href={entry.url} target="_blank" rel="noopener noreferrer" className="saas-link">{entry.url.replace(/^https?:\/\//, '').replace(/\/$/, '')}</a></td>
-                    <td>
-                      <div className="saas-table-tags">
-                        {(entry.categories || []).map((tag, i) => (
-                          <span className="saas-tag" key={i}>{tag}</span>
-                        ))}
-                      </div>
-                    </td>
-                    <td className="saas-table-desc">{entry.description || '—'}</td>
-                    <td>
-                      <div className="saas-table-actions">
-                        <button className="saas-action-btn" onClick={() => handleEdit(entry)} title="编辑">
-                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                        </button>
-                        <button className="saas-action-btn saas-action-danger" onClick={() => handleDelete(entry.id)} title="删除">
-                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-                {filteredEntries.length === 0 && (
-                  <tr><td colSpan="6" className="saas-empty">暂无数据</td></tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+          )}
         </main>
       </div>
 
@@ -320,9 +480,18 @@ const AdminPage = () => {
         <div className="saas-modal-overlay" onClick={handleCancel}>
           <div className="saas-modal" onClick={(e) => e.stopPropagation()}>
             <div className="saas-modal-header">
-              <h3>{editingEntry ? '编辑条目' : '添加条目'}</h3>
+              <div className="saas-modal-title-row">
+                <div className="saas-modal-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                </div>
+                <div>
+                  <h3>{editingEntry ? '编辑条目' : '添加条目'}</h3>
+                  <p className="saas-modal-subtitle">{editingEntry ? '修改导航条目的详细信息' : '填写新导航条目的信息'}</p>
+                </div>
+              </div>
               <button className="saas-modal-close" onClick={handleCancel}>&times;</button>
             </div>
+            <div className="saas-modal-divider"></div>
             <form onSubmit={handleSubmit}>
               <div className="saas-modal-body">
                 <div className="saas-form-row">
@@ -337,22 +506,58 @@ const AdminPage = () => {
                 </div>
                 <div className="saas-field">
                   <label>描述</label>
-                  <input type="text" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="简短描述" />
+                  <input type="text" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="简短描述（可选）" />
                 </div>
                 <div className="saas-field">
-                  <label>分类（逗号分隔）</label>
-                  <input type="text" value={form.categories} onChange={(e) => setForm({ ...form, categories: e.target.value })} placeholder="工具, AI, 设计" />
+                  <label>分类</label>
+                  <div className="saas-tag-input" onClick={() => { const el = document.querySelector('.saas-tag-input input'); if (el) el.focus(); }}>
+                    {categoryTags.map((tag, i) => (
+                      <span className="saas-tag-chip" key={i}>
+                        {tag}
+                        <button type="button" className="saas-tag-remove" onClick={(e) => { e.stopPropagation(); handleRemoveTag(i); }}>&times;</button>
+                      </span>
+                    ))}
+                    <input
+                      type="text"
+                      value={tagInput}
+                      onChange={(e) => setTagInput(e.target.value)}
+                      onKeyDown={handleTagKeyDown}
+                      onBlur={() => { if (tagInput.trim()) handleAddTag(tagInput); }}
+                      placeholder={categoryTags.length === 0 ? '输入后按回车添加' : ''}
+                    />
+                  </div>
                 </div>
                 <div className="saas-field">
                   <label>图标</label>
-                  <div className="saas-icon-upload">
-                    {form.iconUrl && <img src={form.iconUrl} alt="preview" className="saas-icon-preview" />}
-                    <input type="text" value={form.iconUrl} readOnly placeholder="上传后自动填充" />
-                    <label className="saas-upload-btn">
-                      {uploading ? '上传中...' : '选择 SVG'}
-                      <input type="file" accept=".svg" onChange={handleUploadIcon} disabled={uploading} />
-                    </label>
+                  <div className="saas-svg-tabs">
+                    <button type="button" className={`saas-svg-tab${svgMode === 'upload' ? ' active' : ''}`} onClick={() => setSvgMode('upload')}>上传文件</button>
+                    <button type="button" className={`saas-svg-tab${svgMode === 'paste' ? ' active' : ''}`} onClick={() => setSvgMode('paste')}>粘贴代码</button>
                   </div>
+                  {form.iconUrl && (
+                    <div className="saas-icon-preview-row">
+                      <img src={form.iconUrl} alt="preview" className="saas-icon-preview" />
+                      <span className="saas-icon-preview-label">已上传</span>
+                    </div>
+                  )}
+                  {svgMode === 'upload' ? (
+                    <label className="saas-upload-area">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                      <span>{uploading ? '上传中...' : '点击选择 SVG 文件'}</span>
+                      <input type="file" accept=".svg" onChange={(e) => handleUploadIcon(e)} disabled={uploading} />
+                    </label>
+                  ) : (
+                    <div className="saas-svg-paste">
+                      <textarea
+                        value={svgCode}
+                        onChange={(e) => setSvgCode(e.target.value)}
+                        placeholder={'粘贴 SVG 代码到这里...'}
+                        rows={5}
+                      />
+                      <button type="button" className="saas-btn-primary saas-btn-sm" onClick={handlePasteSvg} disabled={uploading}>
+                        {uploading ? '上传中...' : '上传 SVG'}
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="saas-modal-footer">
