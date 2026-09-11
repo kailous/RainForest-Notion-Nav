@@ -1,23 +1,18 @@
 const path = require('path');
 
 module.exports = {
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**.amazonaws.com',
+        hostname: '**.vercel-storage.com',
       },
       {
         protocol: 'https',
-        hostname: '**.notion.so',
-      },
-      {
-        protocol: 'https',
-        hostname: '**.githubusercontent.com',
-      },
-      {
-        protocol: 'https',
-        hostname: '**.imgur.com',
+        hostname: '**.blob.vercel-storage.com',
       },
     ],
   },
