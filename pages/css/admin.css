@@ -230,6 +230,7 @@ body:has(.saas-modal-overlay) {
   align-items: center;
   gap: 11px;
   background: rgba(255,255,255,0.04);
+  border: none;
   border-radius: 9px;
   color: var(--text-color);
   font-size: var(--font-size-nav);
@@ -238,6 +239,7 @@ body:has(.saas-modal-overlay) {
   cursor: pointer;
   transition: all 0.15s;
   width: 100%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
 .saas-logout-btn:hover {
