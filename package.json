@@ -2,6 +2,9 @@
   "name": "nav",
   "version": "0.2.0",
   "private": true,
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "dev": "NODE_ENV=development next dev",
     "build": "next build",
