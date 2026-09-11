@@ -46,7 +46,7 @@ body:has(.saas-modal-overlay) {
 .saas-sidebar-title {
   color: var(--text-main-color) !important;
   font-weight: 800 !important;
-  font-size: 21px !important;
+  font-size: var(--font-size-title) !important;
   line-height: 1.25;
   letter-spacing: -0.02em;
   font-family: 'Urbanist', sans-serif !important;
@@ -100,7 +100,7 @@ body:has(.saas-modal-overlay) {
 }
 
 .saas-nav-section-label {
-  font-size: 11px;
+  font-size: var(--font-size-xxs);
   font-weight: 500;
   color: var(--text-color);
   opacity: 0.9;
@@ -115,7 +115,7 @@ body:has(.saas-modal-overlay) {
   gap: 11px;
   padding: 9px 14px;
   border-radius: 9px;
-  font-size: 13.5px;
+  font-size: var(--font-size-nav);
   font-weight: 450;
   color: var(--text-color);
   cursor: pointer;
@@ -183,7 +183,7 @@ body:has(.saas-modal-overlay) {
 }
 
 .saas-sidebar-stat-value {
-  font-size: 28px !important;
+  font-size: var(--font-size-xxl) !important;
   font-weight: 700 !important;
   color: var(--text-main-color) !important;
   opacity: 1;
@@ -193,7 +193,7 @@ body:has(.saas-modal-overlay) {
 }
 
 .saas-sidebar-stat-label {
-  font-size: 10px !important;
+  font-size: var(--font-size-tag) !important;
   color: var(--text-color) !important;
   font-weight: 400;
   opacity: 0.75;
@@ -213,7 +213,7 @@ body:has(.saas-modal-overlay) {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 13px;
+  font-size: var(--font-size-sm);
   color: var(--text-color);
 }
 
@@ -225,7 +225,7 @@ body:has(.saas-modal-overlay) {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: var(--font-size-xs);
   font-weight: 600;
   color: var(--accent-color, #6c63ff);
 }
@@ -267,7 +267,7 @@ body:has(.saas-modal-overlay) {
   background: rgba(108, 99, 255, 0.08);
   border: 1px solid rgba(108, 99, 255, 0.12);
   color: var(--accent-color, #6c63ff);
-  font-size: 13px;
+  font-size: var(--font-size-sm);
   font-weight: 450;
   animation: saas-slide-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -281,7 +281,7 @@ body:has(.saas-modal-overlay) {
   background: none;
   border: none;
   color: inherit;
-  font-size: 18px;
+  font-size: var(--font-size-toast-close);
   cursor: pointer;
   padding: 0 0 0 14px;
   line-height: 1;
@@ -302,7 +302,7 @@ body:has(.saas-modal-overlay) {
 }
 
 .saas-page-title {
-  font-size: 20px;
+  font-size: var(--font-size-lg);
   font-weight: 650;
   color: var(--text-main-color);
   margin: 0;
@@ -310,7 +310,7 @@ body:has(.saas-modal-overlay) {
 }
 
 .saas-page-subtitle {
-  font-size: 13px;
+  font-size: var(--font-size-sm);
   color: var(--text-color);
   margin: 4px 0 0;
   opacity: 0.7;
@@ -340,7 +340,7 @@ body:has(.saas-modal-overlay) {
   border: none;
   outline: none;
   color: var(--text-main-color);
-  font-size: 13px;
+  font-size: var(--font-size-sm);
   width: 220px;
   font-family: inherit;
 }
@@ -379,7 +379,7 @@ body:has(.saas-modal-overlay) {
 .saas-table thead th {
   text-align: left;
   padding: 12px 20px;
-  font-size: 11px;
+  font-size: var(--font-size-xxs);
   font-weight: 550;
   color: var(--text-color);
   text-transform: uppercase;
@@ -404,7 +404,7 @@ body:has(.saas-modal-overlay) {
 
 .saas-table tbody td {
   padding: 14px 20px;
-  font-size: 13.5px;
+  font-size: var(--font-size-nav);
   color: var(--text-main-color);
   vertical-align: middle;
   border-bottom: 1px solid rgba(255,255,255,0.025);
@@ -435,7 +435,7 @@ body:has(.saas-modal-overlay) {
 .saas-link {
   color: var(--text-color);
   text-decoration: none;
-  font-size: 12.5px;
+  font-size: var(--font-size-xs);
   opacity: 0.7;
   transition: all 0.15s;
 }
@@ -452,7 +452,7 @@ body:has(.saas-modal-overlay) {
 }
 
 .saas-tag {
-  font-size: 11px !important;
+  font-size: var(--font-size-xxs) !important;
   padding: 3px 10px;
   border-radius: 6px;
   border: none;
@@ -465,7 +465,7 @@ body:has(.saas-modal-overlay) {
 
 .saas-table-desc {
   color: var(--text-color);
-  font-size: 12.5px;
+  font-size: var(--font-size-xs);
   max-width: 220px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -511,7 +511,7 @@ body:has(.saas-modal-overlay) {
   text-align: center;
   color: var(--text-color);
   padding: 56px 16px !important;
-  font-size: 13.5px;
+  font-size: var(--font-size-nav);
   opacity: 0.5;
 }
 
@@ -525,7 +525,7 @@ body:has(.saas-modal-overlay) {
   border-radius: 9px;
   background: var(--accent-color, #6c63ff);
   color: #fff;
-  font-size: 13px;
+  font-size: var(--font-size-sm);
   font-weight: 520;
   font-family: inherit;
   cursor: pointer;
@@ -556,7 +556,7 @@ body:has(.saas-modal-overlay) {
   width: 100%;
   justify-content: center;
   padding: 11px 20px;
-  font-size: 13.5px;
+  font-size: var(--font-size-nav);
 }
 
 .saas-btn-ghost {
@@ -565,7 +565,7 @@ body:has(.saas-modal-overlay) {
   border-radius: 9px;
   background: transparent;
   color: var(--text-color);
-  font-size: 13px;
+  font-size: var(--font-size-sm);
   font-weight: 450;
   font-family: inherit;
   cursor: pointer;
@@ -593,7 +593,7 @@ body:has(.saas-modal-overlay) {
 }
 
 .saas-settings-section h3 {
-  font-size: 16px;
+  font-size: var(--font-size-md);
   font-weight: 600;
   color: var(--text-main-color);
   margin: 0 0 6px;
@@ -601,7 +601,7 @@ body:has(.saas-modal-overlay) {
 }
 
 .saas-settings-desc {
-  font-size: 13px;
+  font-size: var(--font-size-sm);
   color: var(--text-color);
   margin: 0 0 28px;
   opacity: 0.6;
@@ -619,7 +619,7 @@ body:has(.saas-modal-overlay) {
 
 .saas-success {
   color: #4ade80;
-  font-size: 12.5px;
+  font-size: var(--font-size-xs);
   margin-bottom: 16px;
   font-weight: 450;
 }
@@ -685,7 +685,7 @@ body:has(.saas-modal-overlay) {
 }
 
 .saas-modal-header h3 {
-  font-size: 16.5px;
+  font-size: var(--font-size-md);
   font-weight: 600;
   color: var(--text-main-color);
   margin: 0;
@@ -693,7 +693,7 @@ body:has(.saas-modal-overlay) {
 }
 
 .saas-modal-subtitle {
-  font-size: 12.5px;
+  font-size: var(--font-size-xs);
   color: var(--text-color);
   margin: 3px 0 0;
   opacity: 0.6;
@@ -709,7 +709,7 @@ body:has(.saas-modal-overlay) {
   background: none;
   border: none;
   color: var(--text-color);
-  font-size: 20px;
+  font-size: var(--font-size-lg);
   cursor: pointer;
   padding: 0;
   line-height: 1;
@@ -752,7 +752,7 @@ body:has(.saas-modal-overlay) {
 
 .saas-field label {
   display: block;
-  font-size: 12.5px;
+  font-size: var(--font-size-xs);
   font-weight: 500;
   color: var(--text-color);
   margin-bottom: 8px;
@@ -772,7 +772,7 @@ body:has(.saas-modal-overlay) {
   border-radius: 9px;
   background: rgba(255,255,255,0.03);
   color: var(--text-main-color);
-  font-size: 13.5px;
+  font-size: var(--font-size-nav);
   font-family: inherit;
   outline: none;
   transition: all 0.2s ease;
@@ -819,7 +819,7 @@ body:has(.saas-modal-overlay) {
   border-radius: 6px !important;
   background: rgba(108, 99, 255, 0.12) !important;
   color: var(--accent-color, #6c63ff) !important;
-  font-size: 12px !important;
+  font-size: var(--font-size-xs) !important;
   font-weight: 480 !important;
   border: none !important;
   min-height: auto !important;
@@ -835,7 +835,7 @@ body:has(.saas-modal-overlay) {
   background: none !important;
   border: none !important;
   color: inherit !important;
-  font-size: 14px !important;
+  font-size: var(--font-size-base) !important;
   cursor: pointer;
   padding: 0 2px !important;
   line-height: 1 !important;
@@ -858,7 +858,7 @@ body:has(.saas-modal-overlay) {
   border: none !important;
   outline: none;
   color: var(--text-main-color);
-  font-size: 13px;
+  font-size: var(--font-size-sm);
   font-family: inherit;
   padding: 2px 0 !important;
   box-shadow: none !important;
@@ -887,7 +887,7 @@ body:has(.saas-modal-overlay) {
   border-radius: 6px;
   background: transparent;
   color: var(--text-color);
-  font-size: 12.5px;
+  font-size: var(--font-size-xs);
   font-weight: 450;
   font-family: inherit;
   cursor: pointer;
@@ -919,7 +919,7 @@ body:has(.saas-modal-overlay) {
   cursor: pointer;
   transition: all 0.2s ease;
   position: relative;
-  font-size: 13px;
+  font-size: var(--font-size-sm);
 }
 
 .saas-upload-area:hover {
@@ -958,7 +958,7 @@ body:has(.saas-modal-overlay) {
   border-radius: 9px;
   background: rgba(255,255,255,0.03);
   color: var(--text-main-color);
-  font-size: 12px;
+  font-size: var(--font-size-xxs);
   font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
   outline: none;
   resize: vertical;
@@ -980,7 +980,7 @@ body:has(.saas-modal-overlay) {
 
 .saas-btn-sm {
   padding: 8px 16px;
-  font-size: 12.5px;
+  font-size: var(--font-size-btn-sm);
   align-self: flex-start;
 }
 
@@ -1006,7 +1006,7 @@ body:has(.saas-modal-overlay) {
 }
 
 .saas-icon-preview-label {
-  font-size: 12px !important;
+  font-size: var(--font-size-xxs) !important;
   color: var(--text-color);
   opacity: 0.6;
 }
@@ -1059,7 +1059,7 @@ body:has(.saas-modal-overlay) {
 
 .saas-login-card h2 {
   color: var(--text-main-color);
-  font-size: 22px;
+  font-size: var(--font-size-xl);
   font-weight: 650;
   margin: 0 0 6px;
   letter-spacing: -0.03em;
@@ -1067,7 +1067,7 @@ body:has(.saas-modal-overlay) {
 
 .saas-login-subtitle {
   color: var(--text-color);
-  font-size: 13.5px;
+  font-size: var(--font-size-nav);
   margin: 0 0 32px;
   opacity: 0.6;
 }
@@ -1079,7 +1079,7 @@ body:has(.saas-modal-overlay) {
 
 .saas-input-group label {
   display: block;
-  font-size: 12.5px;
+  font-size: var(--font-size-xs);
   font-weight: 500;
   color: var(--text-color);
   margin-bottom: 8px;
@@ -1092,7 +1092,7 @@ body:has(.saas-modal-overlay) {
   border-radius: 10px;
   background: rgba(255,255,255,0.03);
   color: var(--text-main-color);
-  font-size: 14px;
+  font-size: var(--font-size-base);
   font-family: inherit;
   outline: none;
   box-sizing: border-box;
@@ -1112,7 +1112,7 @@ body:has(.saas-modal-overlay) {
 
 .saas-error {
   color: #ff6b6b;
-  font-size: 12.5px;
+  font-size: var(--font-size-xs);
   margin-bottom: 16px;
   text-align: left;
   font-weight: 450;

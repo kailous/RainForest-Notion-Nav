@@ -67,6 +67,9 @@
     --font-size-xxs: 11px;
     --font-size-tag: 10px;
     --font-size-micro: 8px;
+    --font-size-nav: 13.5px;
+    --font-size-toast-close: 18px;
+    --font-size-btn-sm: 12.5px;
 
     /* 字重 */
     --font-weight-normal: 400;
