@@ -199,10 +199,10 @@ body:has(.saas-modal-overlay),
 }
 
 .saas-sidebar-stat-value {
-  font-size: 22px !important;
-  font-weight: 650;
-  color: var(--text-main-color);
-  opacity: 0.9;
+  font-size: 28px !important;
+  font-weight: 700 !important;
+  color: var(--text-main-color) !important;
+  opacity: 1;
   letter-spacing: -0.03em;
   line-height: 1;
   font-variant-numeric: tabular-nums;
@@ -214,10 +214,10 @@ body:has(.saas-modal-overlay),
 }
 
 .saas-sidebar-stat-label {
-  font-size: 10.5px !important;
+  font-size: 11px !important;
   color: var(--text-color) !important;
-  font-weight: 450;
-  opacity: 0.9;
+  font-weight: 400;
+  opacity: 0.75;
   letter-spacing: 0.02em;
   border: none;
   border-radius: 0;
