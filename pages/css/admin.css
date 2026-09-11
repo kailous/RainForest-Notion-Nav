@@ -24,9 +24,40 @@ body:has(.saas-modal-overlay),
   padding: 0;
   font-size: inherit !important;
   min-height: auto !important;
-  display: inline;
+  display: inline !important;
   width: auto;
   color: inherit;
+}
+
+/* Specific overrides for sidebar elements that need to bypass global span rules */
+.saas-sidebar-title,
+.saas-sidebar-stat-value,
+.saas-sidebar-stat-label,
+.saas-icon-preview-label {
+  display: inline !important;
+  font-size: inherit !important;
+  min-height: auto !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  width: auto !important;
+}
+
+.saas-sidebar-title {
+  color: var(--text-main-color) !important;
+  font-weight: 800 !important;
+  font-size: 21px !important;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.saas-sidebar-stat-value {
+  color: var(--text-main-color) !important;
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
 }
 
 .saas-layout {
