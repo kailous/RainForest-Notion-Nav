@@ -120,8 +120,8 @@ const IndexPage = () => {
             </main>
             <footer className='blur'>
                 <img src="/next.svg" alt="图片加载失败" />
-                <a href="https://vercel.com/kailous/rain-forest-notion-nav"><img src="/vercel.svg" alt="图片加载失败" /></a>
-                <a href="https://github.com/kailous/RainForest-Notion-Nav"><img src="/github.svg" alt="图片加载失败" /></a>
+                <a href="https://vercel.com/kailous/rainforest-nav"><img src="/vercel.svg" alt="图片加载失败" /></a>
+                <a href="https://github.com/kailous/RainForest-Nav"><img src="/github.svg" alt="图片加载失败" /></a>
                 <p>Nav for RainForest, developed by Kailous.</p>
             </footer>
         </>
