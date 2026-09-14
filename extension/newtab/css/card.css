@@ -4,7 +4,7 @@
     justify-content: flex-start;
     gap: var(--gap-container-w) var(--gap-container-h);
     flex-direction: row;
-    padding: 30px calc(var(--padding-w) - var(--gap-container-w)) 30px var(--padding-w);
+    padding: 30px calc(var(--padding-w) - var(--gap-container-w)) 100px var(--padding-w);
     align-items: stretch;
     align-content: flex-start;
     transition: all 0.3s ease;
