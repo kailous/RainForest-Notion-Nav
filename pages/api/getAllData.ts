@@ -1,9 +1,26 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { list } from '@vercel/blob';
+import { list, put } from '@vercel/blob';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
 const BLOB_PREFIX = 'nav-data';
+
+// 生成 UUID
+function generateUUID(): string {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
+async function saveData(data: { entries: any[] }): Promise<string> {
+  const blob = await put(`${BLOB_PREFIX}.json`, JSON.stringify(data), {
+    access: 'public',
+    contentType: 'application/json',
+  });
+  return blob.url;
+}
 
 async function getData(): Promise<{ entries: any[] }> {
   try {
@@ -11,7 +28,25 @@ async function getData(): Promise<{ entries: any[] }> {
     if (blobs.length > 0) {
       const newest = blobs.sort((a, b) => b.uploadedAt.getTime() - a.uploadedAt.getTime())[0];
       const res = await fetch(newest.url);
-      return await res.json();
+      const data = await res.json();
+
+      // 确保所有条目都有 UUID
+      let updated = false;
+      data.entries = data.entries.map((entry: any) => {
+        if (!entry.uuid) {
+          entry.uuid = generateUUID();
+          updated = true;
+        }
+        return entry;
+      });
+
+      // 如果有更新，保存回去
+      if (updated) {
+        console.log('Added UUIDs to entries, saving...');
+        await saveData(data);
+      }
+
+      return data;
     }
   } catch (e) {
     console.warn('Failed to read from Vercel Blob, falling back to local file:', e);
