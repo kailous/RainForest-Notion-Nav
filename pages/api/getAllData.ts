@@ -30,7 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         (entry.categories || []).forEach((tag: string) => tagSet.add(tag));
       });
 
-      res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300');
+      // 不设置缓存，确保每次获取最新数据
       res.status(200).json({
         titleName: process.env.NAV_NAME || '',
         entries: data.entries,
