@@ -2,10 +2,11 @@
 RainForest Navigator - Extension Styles
 */
 
-@import url('root.css');
 @import url('header.css');
-@import url('card.css');
 @import url('footer.css');
+@import url('card.css');
+@import url('fonts/Urbanist.css');
+@import url('root.css');
 @import url('responsive.css');
 
 /* 全局样式 */

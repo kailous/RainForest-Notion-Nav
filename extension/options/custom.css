@@ -1,10 +1,55 @@
-/* Custom styles for extension options page */
+/* Extension options page
+   Mirrors pages/css/style.css global rules so the admin panel
+   renders identically to the online version */
 
 :root {
   --accent-color: #6c63ff;
 }
 
-body:has(.saas-layout) {
+/* ===== Global rules (same as online style.css) ===== */
+* {
+    box-sizing: border-box;
+    line-height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--background-color) !important;
+    position: relative;
+    min-height: 100%;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-main-color);
+}
+
+h1 {
+    order: 0;
+    z-index: 1;
+    color: var(--text-main-color);
+}
+
+p {
+    font-size: var(--font-size-tag);
+    font-weight: 400;
+    color: var(--text-color);
+    line-height: 140%;
+}
+
+/* ===== Admin dark theme overrides (same as online admin.css) ===== */
+body:has(.saas-layout),
+body:has(.saas-login) {
   --blur-bg-color: hsla(230, 15%, 12%, 0.95) !important;
   --background-color: hsla(230, 15%, 8%, 1) !important;
   --text-main-color: hsla(0, 0%, 95%, 1) !important;
@@ -12,29 +57,63 @@ body:has(.saas-layout) {
   --card-bg-color: hsla(230, 15%, 14%, 1) !important;
 }
 
-body {
-  font-family: 'Urbanist', 'Helvetica Neue', Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
+/* Reset global span styles from online card.css */
+.saas-layout span:not(.saas-tag),
+.saas-login span:not(.saas-tag),
+.saas-modal-overlay span:not(.saas-tag):not(.saas-tag-chip) {
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  min-height: auto !important;
+  display: inline !important;
+  width: auto;
+  color: inherit;
 }
 
-.saas-layout span:not(.saas-tag),
-.saas-layout span:not(.saas-tag-chip) {
+/* Specific overrides for sidebar elements that need to bypass global span rules */
+.saas-sidebar-title,
+.saas-sidebar-stat-value,
+.saas-sidebar-stat-label,
+.saas-icon-preview-label {
+  display: inline !important;
+  min-height: auto !important;
   border: none !important;
   border-radius: 0 !important;
   padding: 0 !important;
-  min-height: auto !important;
-  display: inline !important;
   width: auto !important;
-  color: inherit !important;
 }
 
-.saas-sidebar-logo-img {
-  width: var(--header-logo-size);
-  height: var(--header-logo-size);
-  border-radius: 12px;
-  object-fit: cover;
+/* Sync button spinner */
+.pwd-spinner {
+  animation: pwd-spin 1s linear infinite;
 }
 
-.saas-logout-btn {
-  text-decoration: none;
+@keyframes pwd-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ===== Icon preview in modal ===== */
+.saas-icon-preview-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 9px;
+}
+
+.saas-icon-preview {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.saas-icon-preview-label {
+  font-size: var(--font-size-xs);
+  color: var(--text-color);
+  opacity: 0.7;
 }
