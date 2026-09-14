@@ -180,8 +180,7 @@ function setupEventListeners() {
   });
 
   // 数据管理
-  document.getElementById('rfImportBtn').addEventListener('click', importFromRainForest);
-  document.getElementById('syncIconsBtn').addEventListener('click', syncAllIcons);
+  document.getElementById('syncIconsBtn').addEventListener('click', syncAllData);
   document.getElementById('exportBtn').addEventListener('click', exportData);
   document.getElementById('importBtn').addEventListener('click', () => {
     document.getElementById('importFile').click();
@@ -291,8 +290,8 @@ async function handleSubmit(e) {
   await loadEntries();
 }
 
-// 同步所有图标到本地
-async function syncAllIcons() {
+// 同步所有数据
+async function syncAllData() {
   const status = document.getElementById('syncStatus');
   const btn = document.getElementById('syncIconsBtn');
   const apiUrl = document.getElementById('rfApiUrl').value.trim();
@@ -380,84 +379,7 @@ async function syncAllIcons() {
   btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9V3m-9 9a9 9 0 0 1 9-9"/></svg> 同步数据';
 }
 
-async function importFromRainForest() {
-  const url = document.getElementById('rfApiUrl').value.trim();
-  const status = document.getElementById('rfStatus');
-  const btn = document.getElementById('rfImportBtn');
-
-  btn.disabled = true;
-  btn.innerHTML = '导入中...';
-  status.textContent = '正在连接...';
-
-  try {
-    status.textContent = '正在获取数据...';
-    // Chrome 扩展可以直接 fetch，无需特殊 CORS 设置
-    const resp = await fetch(url);
-
-    if (!resp.ok) {
-      throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
-    }
-
-    const data = await resp.json();
-    const entries = data.entries || [];
-
-    if (entries.length === 0) {
-      status.textContent = '没有找到站点数据';
-      return;
-    }
-
-    let imported = 0, skipped = 0, iconCount = 0;
-    status.textContent = `正在导入 ${entries.length} 个站点...`;
-
-    for (let i = 0; i < entries.length; i++) {
-      const entry = entries[i];
-      if (allEntries.find(e => e.url === entry.url)) {
-        skipped++;
-        continue;
-      }
-
-      // 尝试将图标转换为 base64 本地存储（失败时保留原 URL）
-      let localIconUrl = null;
-      if (entry.iconUrl) {
-        const localIcon = await getOrCreateLocalIcon(entry.iconUrl);
-        if (localIcon) {
-          iconCount++;
-        }
-        localIconUrl = localIcon || entry.iconUrl;
-      }
-
-      await add('sites', {
-        uuid: entry.uuid || generateUUID(),
-        name: entry.name,
-        url: entry.url,
-        iconUrl: localIconUrl,
-        categories: entry.categories || [entry.category || '未分类'],
-        category: (entry.categories || [])[0] || entry.category || '未分类',
-        description: entry.description || '',
-        createdAt: Date.now()
-      });
-      imported++;
-
-      // 每10个更新一次进度
-      if (i % 10 === 0) {
-        status.textContent = `正在导入 ${entries.length} 个站点... (${i}/${entries.length})`;
-      }
-    }
-
-    status.textContent = `✓ 导入完成: ${imported} 个新增, ${skipped} 个跳过, ${iconCount} 个图标已本地化`;
-    showToast(`导入完成: ${imported} 个新增`);
-    await loadEntries();
-
-  } catch (err) {
-    console.error('Import error:', err);
-    status.textContent = `✗ 导入失败: ${err.message}`;
-    showToast('导入失败: ' + err.message, 'error');
-  }
-
-  btn.disabled = false;
-  btn.innerHTML = '导入';
-}
-
+// 同步所有数据
 function exportData() {
   const data = {
     sites: allEntries,

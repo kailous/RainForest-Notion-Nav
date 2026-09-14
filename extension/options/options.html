@@ -98,22 +98,12 @@
         </div>
         <div class="saas-settings">
           <div class="saas-settings-section">
-            <h3>从 RainForest 导入</h3>
-            <p class="saas-settings-desc">从 RainForest 导航站导入站点数据</p>
+            <h3>同步数据</h3>
+            <p class="saas-settings-desc">从在线 API 获取最新数据，与本地合并（在线条目覆盖/新增，本地独有保留）</p>
             <div class="saas-field">
               <label>API 地址</label>
               <input type="url" id="rfApiUrl" value="https://nav.rainforest.org.cn/api/getAllData">
             </div>
-            <button class="saas-btn-primary" id="rfImportBtn">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-              导入
-            </button>
-            <p id="rfStatus" style="margin-top: 12px; font-size: var(--font-size-sm); color: var(--text-color);"></p>
-          </div>
-
-          <div class="saas-settings-section" style="margin-top: 20px;">
-            <h3>同步数据</h3>
-            <p class="saas-settings-desc">从在线 API 获取最新数据，与本地合并（在线有则覆盖，本地独有则保留）</p>
             <button class="saas-btn-primary" id="syncIconsBtn">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9V3m-9 9a9 9 0 0 1 9-9"/></svg>
               同步数据
