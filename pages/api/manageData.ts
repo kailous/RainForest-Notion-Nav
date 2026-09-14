@@ -21,11 +21,13 @@ async function getData(): Promise<{ entries: any[] }> {
   return JSON.parse(readFileSync(localPath, 'utf-8'));
 }
 
-async function saveData(data: { entries: any[] }): Promise<void> {
-  await put(`${BLOB_PREFIX}.json`, JSON.stringify(data), {
+async function saveData(data: { entries: any[] }): Promise<string> {
+  const blob = await put(`${BLOB_PREFIX}.json`, JSON.stringify(data), {
     access: 'public',
     contentType: 'application/json',
   });
+  console.log('Data saved, URL:', blob.url);
+  return blob.url;
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
@@ -48,8 +50,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         categories: categories || [],
         iconUrl: iconUrl || '',
       };
+      console.log('Adding entry:', newEntry);
       data.entries.push(newEntry);
-      await saveData(data);
+      console.log('Total entries:', data.entries.length);
+      const savedUrl = await saveData(data);
+      console.log('Saved to:', savedUrl);
       return res.status(200).json(newEntry);
     }
 
