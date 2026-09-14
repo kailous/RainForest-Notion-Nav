@@ -74,7 +74,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
       const newEntry = {
         uuid: generateUUID(),
-        id: Date.now().toString(36) + Math.random().toString(36).slice(2, 7),
         name,
         url,
         description: description || '',
@@ -90,17 +89,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     if (req.method === 'PUT') {
-      const { id, uuid, ...updates } = req.body;
-      const index = data.entries.findIndex((e: any) => e.id === id);
+      const { uuid, ...updates } = req.body;
+      const index = data.entries.findIndex((e: any) => e.uuid === uuid);
       if (index === -1) return res.status(404).json({ error: 'Entry not found' });
-      data.entries[index] = { ...data.entries[index], ...updates, uuid: data.entries[index].uuid || uuid };
+      data.entries[index] = { ...data.entries[index], ...updates };
       await saveData(data);
       return res.status(200).json(data.entries[index]);
     }
 
     if (req.method === 'DELETE') {
-      const { id } = req.body;
-      data.entries = data.entries.filter((e: any) => e.id !== id);
+      const { uuid } = req.body;
+      data.entries = data.entries.filter((e: any) => e.uuid !== uuid);
       await saveData(data);
       return res.status(200).json({ success: true });
     }

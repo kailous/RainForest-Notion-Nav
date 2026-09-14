@@ -30,11 +30,16 @@ async function getData(): Promise<{ entries: any[] }> {
       const res = await fetch(newest.url);
       const data = await res.json();
 
-      // 确保所有条目都有 UUID
+      // 确保所有条目都有 UUID，并删除旧的 id 字段
       let updated = false;
       data.entries = data.entries.map((entry: any) => {
         if (!entry.uuid) {
           entry.uuid = generateUUID();
+          updated = true;
+        }
+        // 删除旧的 id 字段
+        if (entry.id) {
+          delete entry.id;
           updated = true;
         }
         return entry;

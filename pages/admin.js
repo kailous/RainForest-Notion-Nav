@@ -103,7 +103,7 @@ const AdminPage = () => {
         const res = await fetch('/api/manageData', {
           method: 'PUT',
           headers,
-          body: JSON.stringify({ id: editingEntry.id, ...payload }),
+          body: JSON.stringify({ uuid: editingEntry.uuid, ...payload }),
         });
         if (res.ok) {
           setMessage('更新成功');
@@ -145,12 +145,12 @@ const AdminPage = () => {
     setShowModal(true);
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (uuid) => {
     if (!confirm('确定删除这条记录？')) return;
     const res = await fetch('/api/manageData', {
       method: 'DELETE',
       headers,
-      body: JSON.stringify({ id }),
+      body: JSON.stringify({ uuid }),
     });
     if (res.ok) {
       setMessage('删除成功');
@@ -387,7 +387,7 @@ const AdminPage = () => {
                   </thead>
                   <tbody>
                     {filteredEntries.map((entry) => (
-                      <tr key={entry.id}>
+                      <tr key={entry.uuid}>
                         <td>
                           <div className="saas-table-icon">
                             {entry.iconUrl ? <img src={entry.iconUrl} alt="" /> : <span>—</span>}
@@ -408,7 +408,7 @@ const AdminPage = () => {
                             <button className="saas-action-btn" onClick={() => handleEdit(entry)} title="编辑">
                               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                             </button>
-                            <button className="saas-action-btn saas-action-danger" onClick={() => handleDelete(entry.id)} title="删除">
+                            <button className="saas-action-btn saas-action-danger" onClick={() => handleDelete(entry.uuid)} title="删除">
                               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                             </button>
                           </div>
