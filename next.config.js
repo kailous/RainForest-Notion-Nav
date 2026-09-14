@@ -21,3 +21,16 @@ module.exports = {
     return config;
   },
 };
+
+// 扩展构建配置
+const extensionConfig = {
+  ...module.exports,
+  output: 'export',
+  images: {
+    ...module.exports.images,
+    unoptimized: true,
+  },
+  assetPrefix: './',
+};
+
+module.exports.withExtension = () => extensionConfig;

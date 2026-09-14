@@ -1,0 +1,40 @@
+/* Custom styles for extension options page */
+
+:root {
+  --accent-color: #6c63ff;
+}
+
+body:has(.saas-layout) {
+  --blur-bg-color: hsla(230, 15%, 12%, 0.95) !important;
+  --background-color: hsla(230, 15%, 8%, 1) !important;
+  --text-main-color: hsla(0, 0%, 95%, 1) !important;
+  --text-color: hsla(0, 0%, 85%, 1) !important;
+  --card-bg-color: hsla(230, 15%, 14%, 1) !important;
+}
+
+body {
+  font-family: 'Urbanist', 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.saas-layout span:not(.saas-tag),
+.saas-layout span:not(.saas-tag-chip) {
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  min-height: auto !important;
+  display: inline !important;
+  width: auto !important;
+  color: inherit !important;
+}
+
+.saas-sidebar-logo-img {
+  width: var(--header-logo-size);
+  height: var(--header-logo-size);
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.saas-logout-btn {
+  text-decoration: none;
+}

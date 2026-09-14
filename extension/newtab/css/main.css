@@ -1,0 +1,166 @@
+/* 
+RainForest Navigator - Extension Styles
+*/
+
+@import url('root.css');
+@import url('header.css');
+@import url('card.css');
+@import url('footer.css');
+@import url('responsive.css');
+
+/* 全局样式 */
+* {
+    box-sizing: border-box;
+    line-height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--background-color) !important;
+    position: relative;
+    min-height: 100%;
+    box-sizing: border-box; 
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-main-color);
+}
+
+h1 {
+    order: 0;
+    z-index: 1;
+    color: var(--text-main-color);
+}
+
+p {
+    font-size: var(--font-size-tag);
+    font-weight: 400;
+    color: var(--text-color);
+    line-height: 140%;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+    font-size: var(--font-size-xs);
+}
+
+footer {
+    padding: 20px var(--padding-w);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+}
+
+.blur {
+    background-color: var(--blur-bg-color);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+}
+
+/* 图标占位符 */
+.card-icon-placeholder {
+    width: 64px;
+    height: 64px;
+    background: var(--text-color-light);
+    border-radius: 12px;
+}
+
+/* 设置按钮 */
+.settings-btn {
+    position: fixed;
+    top: 20px;
+    right: var(--padding-w);
+    z-index: 1000;
+    width: 24px;
+    height: 40px;
+    border: none;
+    background: url("../icons/settings.svg") no-repeat center;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.settings-btn:hover {
+    opacity: 1;
+}
+
+.settings-btn:hover::after {
+    content: "管理";
+    margin-left: 30px;
+    padding: 4px 8px;
+    font-size: var(--font-size-tag);
+    color: #fff;
+    background-color: var(--highlight-color);
+    white-space: nowrap;
+    border-radius: 4px;
+    line-height: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* 空状态 */
+.empty-state {
+    width: 100%;
+    padding: 80px 0;
+    text-align: center;
+    color: var(--text-color-light);
+}
+
+.empty-state p {
+    font-size: var(--font-size-lg);
+    margin-top: 20px;
+}
+
+/* 设置按钮 */
+.settings-btn {
+    position: fixed;
+    top: 20px;
+    right: var(--padding-w);
+    z-index: 1000;
+    width: 24px;
+    height: 40px;
+    border: none;
+    background: url("../icons/settings.svg") no-repeat center;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.settings-btn:hover {
+    opacity: 1;
+}
+
+.settings-btn:hover::after {
+    content: "管理";
+    margin-left: 30px;
+    padding: 4px 8px;
+    font-size: var(--font-size-tag);
+    color: #fff;
+    background-color: var(--highlight-color);
+    white-space: nowrap;
+    border-radius: 4px;
+    line-height: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}

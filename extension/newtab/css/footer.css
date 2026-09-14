@@ -1,0 +1,13 @@
+footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px 30px;
+    font-size: var(--font-size-xs);
+    color: var(--text-color-light);
+}
+footer img {
+    height: 18px;
+}

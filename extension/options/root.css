@@ -1,0 +1,92 @@
+/* 
+自定义变量库
+*/
+
+/* 配色方案 - 亮色模式 */
+@media (prefers-color-scheme: light){
+    :root {
+        --blur-bg-color: hsla(0, 0%, 95%, 0.36);
+        --background-color: hsla(0, 0%, 95%, 1);
+        --background-color-end: hsla(0, 0%, 100%, 0);
+        --text-main-color: hsla(0, 0%, 20%, 1);
+        --text-color: hsla(0, 0%, 53%, 1);
+        --text-color-light: hsla(0, 0%, 78%, 1);
+        --cord-color: hsla(0, 0%, 100%, 1);
+        --nav-bg-color: hsla(0, 0%, 100%, 1);
+        --highlight-color: hsla(29, 100%, 50%, 1);
+        --shadow-color: hsla(0, 0%, 0%, 0.1);
+        --glass-border-color:hsla(0, 0%, 100%, 0.2);
+    }
+}
+/* 配色方案 - 暗色模式 */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --blur-bg-color: hsla(0, 0%, 20%, 0.36);
+        --background-color: hsla(0, 0%, 20%, 1);
+        --background-color-end: hsla(0, 0%, 0%, 0);
+        --text-main-color: hsla(0, 0%, 100%, 1);
+        --text-color: hsla(0, 0%, 80%, 1);
+        --text-color-light: hsla(0, 0%, 40%, 1);
+        --cord-color: hsla(0, 0%, 13%, 1);
+        --nav-bg-color: hsla(0, 0%, 13%, 1);
+        --highlight-color: hsla(29, 100%, 50%, 1);
+        --shadow-color: hsla(0, 0%, 0%, 0.3);
+        --glass-border-color:hsla(0, 0%, 100%, 1);
+    }
+}
+/* 渐变色 */
+:root {
+    /* 从上到下的渐变 */
+    --gradient-bg: linear-gradient(180deg, var(--background-color) 25%, var(--background-color-end) 100%);
+}
+/* 阴影 */
+:root {
+    --shadow: 0 0 10px 0 var(--shadow-color);
+}
+/* 参数 */
+:root {
+    /* 左右内边距 */
+    --padding-w: 30px;
+    /* 卡片堆横向间距 */
+    --gap-container-w: 20px;
+    /* 卡片堆纵向间距 */
+    --gap-container-h: 20px;
+    /* header logo size */
+    --header-logo-size: 64px;
+
+    /* ===== 字体系统 ===== */
+    /* 字号 */
+    --font-size-xxl: 28px;
+    --font-size-xl: 22px;
+    --font-size-title: 21px;
+    --font-size-lg: 20px;
+    --font-size-md: 16px;
+    --font-size-base: 14px;
+    --font-size-sm: 13px;
+    --font-size-xs: 12px;
+    --font-size-xxs: 11px;
+    --font-size-tag: 10px;
+    --font-size-micro: 8px;
+    --font-size-nav: 13.5px;
+    --font-size-toast-close: 18px;
+    --font-size-btn-sm: 12.5px;
+
+    /* 字重 */
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+
+    /* 行高 */
+    --line-height-tight: 1.2;
+    --line-height-snug: 1.25;
+    --line-height-normal: 1.4;
+    --line-height-relaxed: 1.5;
+
+    /* 字间距 */
+    --letter-spacing-tight: -0.03em;
+    --letter-spacing-normal: -0.02em;
+    --letter-spacing-wide: 0.02em;
+    --letter-spacing-wider: 0.6px;
+}

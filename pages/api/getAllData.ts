@@ -5,6 +5,27 @@ import { join } from 'path';
 
 const BLOB_PREFIX = 'nav-data';
 
+function rewriteIconUrl(iconUrl: string): string {
+  // Vercel Blob 图标 URL -> 本地路径
+  if (iconUrl && iconUrl.includes('public.blob.vercel-storage.com')) {
+    // 提取文件名，如 icons/flora-xxx.svg -> /icons/flora.svg
+    const match = iconUrl.match(/icons\/([^-]+)/i);
+    if (match) {
+      return `/icons/${match[1].toLowerCase()}.svg`;
+    }
+  }
+  // S3 预签名 URL -> 本地路径
+  if (iconUrl && iconUrl.includes('amazonaws.com') &&
+      (iconUrl.includes('X-Amz-Signature') || iconUrl.includes('X-Amz-Expires'))) {
+    // 提取文件名，如 .../Cosmos.svg -> /icons/Cosmos.svg
+    const match = iconUrl.match(/\/([^\/]+\.svg)/i);
+    if (match) {
+      return `/icons/${match[1]}`;
+    }
+  }
+  return iconUrl;
+}
+
 async function getData(): Promise<{ entries: any[] }> {
   try {
     const { blobs } = await list({ prefix: BLOB_PREFIX });
@@ -25,9 +46,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       const data = await getData();
       const tagSet = new Set<string>();
+
+      // 重写图标 URL
       data.entries.forEach((entry: any) => {
+        if (entry.iconUrl) {
+          entry.iconUrl = rewriteIconUrl(entry.iconUrl);
+        }
         (entry.categories || []).forEach((tag: string) => tagSet.add(tag));
       });
+
       res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300');
       res.status(200).json({
         titleName: process.env.NAV_NAME || '',

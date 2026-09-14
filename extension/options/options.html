@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>导航管理 - RainForest Nav</title>
+  <link rel="stylesheet" href="root.css">
+  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="custom.css">
+</head>
+<body>
+  <div class="saas-layout">
+    <!-- 侧边栏 -->
+    <aside class="saas-sidebar">
+      <div class="saas-sidebar-header">
+        <img src="../newtab/logo.png" alt="RainForest" class="saas-sidebar-logo-img">
+        <span class="saas-sidebar-title">RainForest<br>Nav</span>
+      </div>
+      <nav class="saas-nav">
+        <div class="saas-nav-section-label">菜单</div>
+        <a class="saas-nav-item active" data-page="entries">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          导航管理
+        </a>
+        <a class="saas-nav-item" data-page="data">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          数据管理
+        </a>
+      </nav>
+      <div class="saas-sidebar-stats">
+        <div class="saas-sidebar-stat">
+          <span class="saas-sidebar-stat-value" id="stat-entries">0</span>
+          <span class="saas-sidebar-stat-label">条目</span>
+        </div>
+        <div class="saas-sidebar-stat">
+          <span class="saas-sidebar-stat-value" id="stat-categories">0</span>
+          <span class="saas-sidebar-stat-label">分类</span>
+        </div>
+        <div class="saas-sidebar-stat">
+          <span class="saas-sidebar-stat-value" id="stat-icons">0</span>
+          <span class="saas-sidebar-stat-label">图标</span>
+        </div>
+      </div>
+      <div class="saas-sidebar-footer">
+        <button class="saas-logout-btn" id="logoutBtn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          退出登录
+        </button>
+      </div>
+    </aside>
+
+    <!-- 主内容 -->
+    <main class="saas-main">
+      <div id="toast" class="saas-toast" style="display: none;"></div>
+
+      <!-- 导航管理页 -->
+      <div id="page-entries">
+        <div class="saas-page-header">
+          <div>
+            <h2 class="saas-page-title">导航管理</h2>
+            <p class="saas-page-subtitle">管理所有导航条目和分类</p>
+          </div>
+          <div class="saas-page-actions">
+            <div class="saas-search">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="searchInput" placeholder="搜索...">
+            </div>
+            <button class="saas-btn-primary" id="addBtn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              添加条目
+            </button>
+          </div>
+        </div>
+        <div class="saas-table-wrapper">
+          <table class="saas-table">
+            <thead>
+              <tr>
+                <th style="width: 52"></th>
+                <th>名称</th>
+                <th>链接</th>
+                <th>分类</th>
+                <th>描述</th>
+                <th style="width: 100">操作</th>
+              </tr>
+            </thead>
+            <tbody id="entriesTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 数据管理页 -->
+      <div id="page-data" style="display: none;">
+        <div class="saas-page-header">
+          <div>
+            <h2 class="saas-page-title">数据管理</h2>
+            <p class="saas-page-subtitle">导入导出你的数据</p>
+          </div>
+        </div>
+        <div class="saas-settings">
+          <div class="saas-settings-section">
+            <h3>从 RainForest 导入</h3>
+            <p class="saas-settings-desc">从 RainForest 导航站导入站点数据</p>
+            <div class="saas-field">
+              <label>API 地址</label>
+              <input type="url" id="rfApiUrl" value="https://nav.rainforest.org.cn/api/getAllData">
+            </div>
+            <button class="saas-btn-primary" id="rfImportBtn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              导入
+            </button>
+            <p id="rfStatus" style="margin-top: 12px; font-size: var(--font-size-sm); color: var(--text-color);"></p>
+          </div>
+
+          <div class="saas-settings-section" style="margin-top: 20px;">
+            <h3>导出 / 导入 JSON</h3>
+            <p class="saas-settings-desc">将所有数据导出为 JSON 文件，或从 JSON 恢复</p>
+            <div style="display: flex; gap: 10px;">
+              <button class="saas-btn-primary" id="exportBtn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                导出
+              </button>
+              <button class="saas-btn-ghost" id="importBtn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                导入
+              </button>
+              <input type="file" id="importFile" accept=".json" style="display: none;">
+            </div>
+          </div>
+
+          <div class="saas-settings-section" style="margin-top: 20px; border-color: #ff6b6b;">
+            <h3 style="color: #ff6b6b;">危险区域</h3>
+            <p class="saas-settings-desc">清除所有本地数据，此操作不可恢复</p>
+            <button class="saas-btn-ghost" style="color: #ff6b6b; border-color: rgba(255,107,107,0.3);" id="clearBtn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              清除所有数据
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- 添加/编辑弹窗 -->
+  <div class="saas-modal-overlay" id="modal" style="display: none;">
+    <div class="saas-modal">
+      <div class="saas-modal-header">
+        <div class="saas-modal-title-row">
+          <div class="saas-modal-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </div>
+          <div>
+            <h3 id="modalTitle">添加条目</h3>
+            <p class="saas-modal-subtitle">填写导航条目的信息</p>
+          </div>
+        </div>
+        <button class="saas-modal-close" id="modalClose">&times;</button>
+      </div>
+      <div class="saas-modal-divider"></div>
+      <form id="entryForm">
+        <div class="saas-modal-body">
+          <div class="saas-form-row">
+            <div class="saas-field">
+              <label>名称 <span class="saas-required">*</span></label>
+              <input type="text" id="entryName" required placeholder="站点名称">
+            </div>
+            <div class="saas-field">
+              <label>链接 <span class="saas-required">*</span></label>
+              <input type="url" id="entryUrl" required placeholder="https://example.com">
+            </div>
+          </div>
+          <div class="saas-field">
+            <label>描述</label>
+            <input type="text" id="entryDesc" placeholder="简短描述（可选）">
+          </div>
+          <div class="saas-field">
+            <label>分类</label>
+            <div class="saas-tag-input" id="tagInput">
+              <div id="tagChips"></div>
+              <input type="text" id="tagInputField" placeholder="输入后按回车添加">
+            </div>
+          </div>
+          <div class="saas-field">
+            <label>图标 URL</label>
+            <input type="url" id="entryIcon" placeholder="https://example.com/icon.png">
+            <p style="font-size: var(--font-size-xs); color: var(--text-color); margin-top: 6px; opacity: 0.6;">支持 PNG/JPG/SVG 等图片格式，或使用 Google Favicon</p>
+          </div>
+        </div>
+        <div class="saas-modal-footer">
+          <button type="button" class="saas-btn-ghost" id="cancelBtn">取消</button>
+          <button type="submit" class="saas-btn-primary" id="saveBtn">添加</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="options.js"></script>
+</body>
+</html>

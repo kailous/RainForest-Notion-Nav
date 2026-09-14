@@ -1,0 +1,102 @@
+#cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: var(--gap-container-w) var(--gap-container-h);
+    flex-direction: row;
+    padding: 30px calc(var(--padding-w) - var(--gap-container-w)) 30px var(--padding-w);
+    align-items: stretch;
+    align-content: flex-start;
+    transition: all 0.3s ease;
+}
+
+#cards-container img {
+    width: 64px;
+    height: 64px;
+    display: block;
+}
+
+.card {
+    display: flex;
+    min-width: 100px;
+    width: 100%;
+    flex-basis: calc(100% / 7 - 20px);
+    margin: 0;
+    transition: background 0.1s;
+    background-color: var(--cord-color);
+    box-shadow: 0 1px 3px var(--shadow-color);
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 20px;
+    flex-direction: column;
+    gap: 10px;
+    flex-wrap: nowrap;
+    align-content: flex-start;
+    align-items: flex-start;
+    transition: top 0.3s ease, box-shadow 0.3s ease;
+}
+
+a.card:hover {
+    top: -10px;
+    position: relative;
+    box-shadow: 0 10px 20px var(--shadow-color);
+    border-bottom: none !important;
+    border: 0.5px solid rgba(255, 255, 255, 0.2);
+}
+
+.card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+h2 {
+    font-size: var(--font-size-lg);
+    font-weight: 800;
+}
+
+span {
+    display: block;
+    font-size: var(--font-size-micro) !important;
+    min-height: var(--font-size-micro) !important;
+    font-weight: 400;
+    border: 1px solid var(--text-color-light);
+    color: var(--text-color-light);
+    width: auto;
+    padding: 3px 6px;
+    border-radius: 20px;
+}
+
+p {
+    font-size: var(--font-size-tag);
+    font-weight: 400;
+    color: var(--text-color);
+    line-height: 140%;
+}
+
+.icons {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    display: block;
+}
+
+.card-image-shadow {
+    position: absolute;
+    top: 0px;
+    z-index: 2;
+    filter: blur(0px);
+    opacity: 0;
+    transition: top 0.3s ease, filter 0.3s ease, opacity 0.3s ease;
+}
+
+a.card:hover .card-image-shadow {
+    top: 15px;
+    filter: blur(25px);
+    opacity: 2;
+}
+
+.card-image {
+    position: absolute;
+    z-index: 3;
+}

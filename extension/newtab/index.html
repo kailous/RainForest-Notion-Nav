@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RainForest Nav</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <header class="blur">
+    <div id="title">
+      <div id="left">
+        <img src="logo.png" alt="Logo" id="logo">
+        <h1>RainForest<br>Nav</h1>
+        <button id="refresh-button" title="刷新数据"></button>
+      </div>
+      <div id="right">
+        <p>RainForest Nav</p>
+        <p>本地存储</p>
+      </div>
+    </div>
+    <div id="nav">
+      <button class="nav-button active" data-tag="全部">全部</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="cards-container"></div>
+  </main>
+
+  <footer class="blur">
+    <p>RainForest Nav</p>
+    <p>本地存储版本</p>
+  </footer>
+
+  <!-- 设置按钮 -->
+  <a href="../options/options.html" class="settings-btn" title="管理"></a>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
