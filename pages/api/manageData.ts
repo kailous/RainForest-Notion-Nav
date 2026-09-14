@@ -10,10 +10,13 @@ async function getData(): Promise<{ entries: any[] }> {
   try {
     const { blobs } = await list({ prefix: BLOB_PREFIX });
     if (blobs.length > 0) {
+      console.log('getData: found blobs:', blobs.map(b => b.url).join(', '));
       const newest = blobs.sort((a, b) => b.uploadedAt.getTime() - a.uploadedAt.getTime())[0];
+      console.log('getData: using newest:', newest.url);
       const res = await fetch(newest.url);
       return await res.json();
     }
+    console.log('getData: no blobs found, using local file');
   } catch (e) {
     console.warn('Failed to read from Vercel Blob, falling back to local file:', e);
   }
