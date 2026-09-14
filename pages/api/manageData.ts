@@ -6,6 +6,15 @@ import { getAuth } from './_auth';
 
 const BLOB_PREFIX = 'nav-data';
 
+// 生成 UUID
+function generateUUID(): string {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
 async function getData(): Promise<{ entries: any[] }> {
   try {
     const { blobs } = await list({ prefix: BLOB_PREFIX });
@@ -14,7 +23,25 @@ async function getData(): Promise<{ entries: any[] }> {
       const newest = blobs.sort((a, b) => b.uploadedAt.getTime() - a.uploadedAt.getTime())[0];
       console.log('getData: using newest:', newest.url);
       const res = await fetch(newest.url);
-      return await res.json();
+      const data = await res.json();
+
+      // 确保所有条目都有 UUID
+      let updated = false;
+      data.entries = data.entries.map((entry: any) => {
+        if (!entry.uuid) {
+          entry.uuid = generateUUID();
+          updated = true;
+        }
+        return entry;
+      });
+
+      // 如果有更新，保存回去
+      if (updated) {
+        console.log('Added UUIDs to entries, saving...');
+        await saveData(data);
+      }
+
+      return data;
     }
     console.log('getData: no blobs found, using local file');
   } catch (e) {
@@ -46,6 +73,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(400).json({ error: 'Name and URL are required' });
       }
       const newEntry = {
+        uuid: generateUUID(),
         id: Date.now().toString(36) + Math.random().toString(36).slice(2, 7),
         name,
         url,
@@ -62,10 +90,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     if (req.method === 'PUT') {
-      const { id, ...updates } = req.body;
+      const { id, uuid, ...updates } = req.body;
       const index = data.entries.findIndex((e: any) => e.id === id);
       if (index === -1) return res.status(404).json({ error: 'Entry not found' });
-      data.entries[index] = { ...data.entries[index], ...updates };
+      data.entries[index] = { ...data.entries[index], ...updates, uuid: data.entries[index].uuid || uuid };
       await saveData(data);
       return res.status(200).json(data.entries[index]);
     }
