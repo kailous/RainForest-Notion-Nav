@@ -57,7 +57,19 @@ export async function initDB() {
         if (!database.objectStoreNames.contains('icons')) {
           const iconsStore = database.createObjectStore('icons', { keyPath: 'id' });
           iconsStore.createIndex('mimeType', 'mimeType', { unique: false });
+          iconsStore.createIndex('originUrl', 'originUrl', { unique: false });
         }
+      }
+      // v4 -> v5: 添加 originUrl 索引
+      if (oldVersion < 5) {
+        if (database.objectStoreNames.contains('icons')) {
+          try {
+            database.deleteObjectStore('icons');
+          } catch (e) {}
+        }
+        const iconsStore = database.createObjectStore('icons', { keyPath: 'id' });
+        iconsStore.createIndex('mimeType', 'mimeType', { unique: false });
+        iconsStore.createIndex('originUrl', 'originUrl', { unique: false });
       }
     };
   });
@@ -200,17 +212,31 @@ export async function urlToBase64(url) {
 }
 
 // 保存图标到 IndexedDB（返回图标 ID）
-export async function saveIcon(base64Data) {
+export async function saveIcon(base64Data, originUrl = null) {
   await initDB();
   const id = `icon_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
   const icon = {
     id,
     data: base64Data,
     mimeType: base64Data.match(/^data:(.*?);/)?.[1] || 'image/png',
+    originUrl: originUrl,
     createdAt: Date.now()
   };
   await put('icons', icon);
   return id;
+}
+
+// 通过 originUrl 查找已存在的图标
+export async function findIconByUrl(originUrl) {
+  await initDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction('icons', 'readonly');
+    const store = tx.objectStore('icons');
+    const index = store.index('originUrl');
+    const request = index.get(originUrl);
+    request.onsuccess = () => resolve(request.result || null);
+    request.onerror = () => reject(request.error);
+  });
 }
 
 // 获取图标 base64 数据
@@ -246,9 +272,15 @@ export async function downloadAndSaveIcon(url) {
 
   // Vercel Blob URL 是永久的，下载到本地
   if (url && isVercelBlob && !isAwsSigned) {
+    // 先检查是否已下载过
+    const existing = await findIconByUrl(url);
+    if (existing) {
+      return existing.id;
+    }
+    // 下载并保存
     const base64 = await urlToBase64(url);
     if (base64) {
-      return await saveIcon(base64);
+      return await saveIcon(base64, url);
     }
   }
 
