@@ -29,30 +29,6 @@ async function init() {
 async function loadEntries() {
   allEntries = await dbGetAll('sites');
   updateStats();
-  renderTable();
-}
-
-function updateStats() {
-  const uniqueCategories = new Set();
-  let iconCount = 0;
-
-  allEntries.forEach(entry => {
-    if (entry.categories && Array.isArray(entry.categories)) {
-      entry.categories.forEach(c => uniqueCategories.add(c));
-    } else if (entry.category) {
-      uniqueCategories.add(entry.category);
-    }
-    if (entry.iconUrl) iconCount++;
-  });
-
-  document.getElementById('stat-entries').textContent = allEntries.length;
-  document.getElementById('stat-categories').textContent = uniqueCategories.size;
-  document.getElementById('stat-icons').textContent = iconCount;
-}
-
-async function loadEntries() {
-  allEntries = await dbGetAll('sites');
-  updateStats();
   await renderTable();
 }
 
