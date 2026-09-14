@@ -3,10 +3,19 @@
  * 数据格式与 nav.rainforest.org.cn 完全一致
  */
 
-import { getAll, add } from '../shared/storage.js';
+import { getAll, add, getIcon } from '../shared/storage.js';
 
 let allEntries = [];
 let currentTag = '全部';
+
+// 解析图标 URL（如果是 icon_ ID，从 IndexedDB 获取 base64）
+async function resolveIconUrl(iconUrl) {
+  if (!iconUrl) return null;
+  if (iconUrl.startsWith('icon_')) {
+    return await getIcon(iconUrl);
+  }
+  return iconUrl;
+}
 
 // 初始化
 document.addEventListener('DOMContentLoaded', init);
@@ -30,14 +39,14 @@ function setupImageErrorHandlers() {
 async function loadData() {
   try {
     allEntries = await getAll('sites');
-    renderNav();
-    renderCards();
+    await renderNav();
+    await renderCards();
   } catch (error) {
     console.error('加载数据失败:', error);
   }
 }
 
-function renderNav() {
+async function renderNav() {
   const nav = document.getElementById('nav');
 
   // 获取所有分类（兼容 categories 数组格式）
@@ -64,7 +73,7 @@ function renderNav() {
   });
 }
 
-function renderCards() {
+async function renderCards() {
   const container = document.getElementById('cards-container');
 
   let filtered = allEntries;
@@ -87,10 +96,17 @@ function renderCards() {
     return;
   }
 
-  container.innerHTML = filtered.map(entry => {
-    // iconUrl 可能是：base64 数据、图标 ID (icon_xxx)、或外部 URL
-    const iconUrl = entry.iconUrl;
-    const isLocalData = iconUrl && (iconUrl.startsWith('data:') || iconUrl.startsWith('icon_'));
+  // 解析所有图标的 base64 数据
+  const entriesWithIcons = await Promise.all(
+    filtered.map(async (entry) => ({
+      ...entry,
+      resolvedIconUrl: await resolveIconUrl(entry.iconUrl)
+    }))
+  );
+
+  container.innerHTML = entriesWithIcons.map(entry => {
+    const iconUrl = entry.resolvedIconUrl;
+    const isLocalData = iconUrl && iconUrl.startsWith('data:');
     const isExternalUrl = iconUrl && !isLocalData;
     const domain = getDomain(entry.url);
     const fallbackSvg = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect fill="#999" width="64" height="64" rx="12"/></svg>');
@@ -98,12 +114,12 @@ function renderCards() {
     return `
       <a href="${escapeHtml(entry.url)}" target="_blank" class="card">
         <div class="icons">
-          ${isLocalData ? `
+          ${iconUrl ? `
             <img src="${escapeHtml(iconUrl)}" class="card-image-shadow" alt="" data-type="local" data-domain="${escapeHtml(domain)}">
             <img src="${escapeHtml(iconUrl)}" class="card-image" alt="" data-type="local" data-domain="${escapeHtml(domain)}">
           ` : `
-            <img src="${iconUrl || `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=64`}" class="card-image-shadow" alt="" data-type="external" data-domain="${escapeHtml(domain)}">
-            <img src="${iconUrl || `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=64`}" class="card-image" alt="" data-type="external" data-domain="${escapeHtml(domain)}">
+            <img src="${`https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=64`}" class="card-image-shadow" alt="" data-type="external" data-domain="${escapeHtml(domain)}">
+            <img src="${`https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=64`}" class="card-image" alt="" data-type="external" data-domain="${escapeHtml(domain)}">
           `}
         </div>
         <h2 class="card-title">${escapeHtml(entry.name)}</h2>

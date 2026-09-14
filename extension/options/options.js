@@ -3,11 +3,20 @@
  * 操作本地 IndexedDB
  */
 
-import { getAll, add, put, remove, clear, getAll as dbGetAll, fileToBase64, saveIcon, getOrCreateLocalIcon } from '../shared/storage.js';
+import { getAll, add, put, remove, clear, getAll as dbGetAll, fileToBase64, saveIcon, getOrCreateLocalIcon, getIcon } from '../shared/storage.js';
 
 let allEntries = [];
 let editingEntry = null;
 let categoryTags = [];
+
+// 解析图标 URL（如果是 icon_ ID，从 IndexedDB 获取 base64）
+async function resolveIconUrl(iconUrl) {
+  if (!iconUrl) return null;
+  if (iconUrl.startsWith('icon_')) {
+    return await getIcon(iconUrl);
+  }
+  return iconUrl;
+}
 
 // 初始化
 document.addEventListener('DOMContentLoaded', init);
@@ -41,7 +50,31 @@ function updateStats() {
   document.getElementById('stat-icons').textContent = iconCount;
 }
 
-function renderTable() {
+async function loadEntries() {
+  allEntries = await dbGetAll('sites');
+  updateStats();
+  await renderTable();
+}
+
+function updateStats() {
+  const uniqueCategories = new Set();
+  let iconCount = 0;
+
+  allEntries.forEach(entry => {
+    if (entry.categories && Array.isArray(entry.categories)) {
+      entry.categories.forEach(c => uniqueCategories.add(c));
+    } else if (entry.category) {
+      uniqueCategories.add(entry.category);
+    }
+    if (entry.iconUrl) iconCount++;
+  });
+
+  document.getElementById('stat-entries').textContent = allEntries.length;
+  document.getElementById('stat-categories').textContent = uniqueCategories.size;
+  document.getElementById('stat-icons').textContent = iconCount;
+}
+
+async function renderTable() {
   const tbody = document.getElementById('entriesTable');
   const search = document.getElementById('searchInput').value.toLowerCase();
 
@@ -59,12 +92,20 @@ function renderTable() {
     return;
   }
 
-  tbody.innerHTML = filtered.map(entry => `
+  // 解析所有图标 URL
+  const entriesWithIcons = await Promise.all(
+    filtered.map(async (entry) => ({
+      ...entry,
+      resolvedIconUrl: await resolveIconUrl(entry.iconUrl)
+    }))
+  );
+
+  tbody.innerHTML = entriesWithIcons.map(entry => `
     <tr>
       <td>
         <div class="saas-table-icon">
-          ${entry.iconUrl
-            ? `<img src="${escapeHtml(entry.iconUrl)}" alt="">`
+          ${entry.resolvedIconUrl
+            ? `<img src="${escapeHtml(entry.resolvedIconUrl)}" alt="">`
             : '<span>—</span>'}
         </div>
       </td>
@@ -106,7 +147,7 @@ function setupEventListeners() {
   });
 
   // 搜索
-  document.getElementById('searchInput').addEventListener('input', renderTable);
+  document.getElementById('searchInput').addEventListener('input', () => renderTable());
 
   // 添加按钮
   document.getElementById('addBtn').addEventListener('click', () => openModal());
