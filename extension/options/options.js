@@ -3,7 +3,7 @@
  * 操作本地 IndexedDB
  */
 
-import { getAll, add, put, remove, clear, getAll as dbGetAll, fileToBase64, saveIcon, getOrCreateLocalIcon, getIcon } from '../shared/storage.js';
+import { getAll, add, put, remove, clear, getAll as dbGetAll, fileToBase64, saveIcon, getOrCreateLocalIcon, getIcon, generateUUID } from '../shared/storage.js';
 
 let allEntries = [];
 let editingEntry = null;
@@ -268,6 +268,7 @@ async function handleSubmit(e) {
   }
 
   const entry = {
+    uuid: editingEntry?.uuid || generateUUID(),
     name,
     url,
     description,
@@ -317,11 +318,12 @@ async function syncAllIcons() {
       return;
     }
 
-    // 获取本地所有条目
+    // 获取本地所有条目，建立 UUID 和 URL 索引
     const localEntries = await dbGetAll('sites');
-    const localUrls = new Set(localEntries.map(e => e.url));
+    const localByUuid = new Map(localEntries.map(e => [e.uuid, e]));
+    const localByUrl = new Map(localEntries.map(e => [e.url, e]));
 
-    let updated = 0, added = 0, skipped = 0;
+    let updated = 0, added = 0;
 
     for (let i = 0; i < onlineEntries.length; i++) {
       const onlineEntry = onlineEntries[i];
@@ -333,7 +335,13 @@ async function syncAllIcons() {
         localIconUrl = await getOrCreateLocalIcon(onlineEntry.iconUrl);
       }
 
+      // 查找本地条目：优先 UUID，其次 URL
+      const existingByUuid = onlineEntry.uuid && localByUuid.get(onlineEntry.uuid);
+      const existingByUrl = localByUrl.get(onlineEntry.url);
+      const existing = existingByUuid || existingByUrl;
+
       const entryData = {
+        uuid: onlineEntry.uuid || (existing?.uuid) || generateUUID(),
         name: onlineEntry.name,
         url: onlineEntry.url,
         iconUrl: localIconUrl,
@@ -343,9 +351,8 @@ async function syncAllIcons() {
         updatedAt: Date.now()
       };
 
-      if (localUrls.has(onlineEntry.url)) {
-        // 本地已有，更新
-        const existing = localEntries.find(e => e.url === onlineEntry.url);
+      if (existing) {
+        // 本地已有，更新（保留本地 ID 和创建时间）
         entryData.id = existing.id;
         entryData.createdAt = existing.createdAt;
         await put('sites', entryData);
@@ -358,7 +365,7 @@ async function syncAllIcons() {
       }
     }
 
-    status.textContent = `✓ 同步完成: ${updated} 个更新, ${added} 个新增, 保留 ${localEntries.length - updated} 个本地独有条目`;
+    status.textContent = `✓ 同步完成: ${updated} 个更新, ${added} 个新增`;
     showToast(`同步完成: ${updated} 个更新, ${added} 个新增`);
 
     // 重新加载表格
@@ -420,6 +427,7 @@ async function importFromRainForest() {
       }
 
       await add('sites', {
+        uuid: entry.uuid || generateUUID(),
         name: entry.name,
         url: entry.url,
         iconUrl: localIconUrl,
@@ -475,6 +483,7 @@ async function handleImportFile(e) {
         if (!allEntries.find(e => e.url === entry.url)) {
           await add('sites', {
             ...entry,
+            uuid: entry.uuid || generateUUID(),
             id: undefined,
             createdAt: Date.now()
           });
