@@ -294,40 +294,72 @@ async function handleSubmit(e) {
 async function syncAllIcons() {
   const status = document.getElementById('syncStatus');
   const btn = document.getElementById('syncIconsBtn');
+  const apiUrl = document.getElementById('rfApiUrl').value.trim();
 
   btn.disabled = true;
   btn.innerHTML = '同步中...';
-  status.textContent = '正在扫描图标...';
+  status.textContent = '正在获取在线数据...';
 
   try {
-    const entries = await dbGetAll('sites');
-    const entriesWithIcons = entries.filter(e => e.iconUrl && !e.iconUrl.startsWith('data:') && !e.iconUrl.startsWith('icon_'));
+    // 从在线 API 获取数据
+    const resp = await fetch(apiUrl);
+    if (!resp.ok) {
+      throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
+    }
+    const data = await resp.json();
+    const onlineEntries = data.entries || [];
 
-    if (entriesWithIcons.length === 0) {
-      status.textContent = '✓ 所有图标已同步完成';
-      showToast('所有图标已同步完成');
+    if (onlineEntries.length === 0) {
+      status.textContent = '在线数据为空';
+      showToast('在线数据为空');
       btn.disabled = false;
-      btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9V3m-9 9a9 9 0 0 1 9-9"/></svg> 同步图标';
+      btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9V3m-9 9a9 9 0 0 1 9-9"/></svg> 同步数据';
       return;
     }
 
-    let synced = 0, failed = 0;
-    for (let i = 0; i < entriesWithIcons.length; i++) {
-      const entry = entriesWithIcons[i];
-      status.textContent = `正在同步 ${i + 1}/${entriesWithIcons.length}...`;
+    // 获取本地所有条目
+    const localEntries = await dbGetAll('sites');
+    const localUrls = new Set(localEntries.map(e => e.url));
 
-      const localIcon = await getOrCreateLocalIcon(entry.iconUrl);
-      if (localIcon) {
-        entry.iconUrl = localIcon;
-        await put('sites', entry);
-        synced++;
+    let updated = 0, added = 0, skipped = 0;
+
+    for (let i = 0; i < onlineEntries.length; i++) {
+      const onlineEntry = onlineEntries[i];
+      status.textContent = `正在同步 ${i + 1}/${onlineEntries.length}...`;
+
+      // 处理图标：下载到本地
+      let localIconUrl = null;
+      if (onlineEntry.iconUrl) {
+        localIconUrl = await getOrCreateLocalIcon(onlineEntry.iconUrl);
+      }
+
+      const entryData = {
+        name: onlineEntry.name,
+        url: onlineEntry.url,
+        iconUrl: localIconUrl,
+        categories: onlineEntry.categories || [onlineEntry.category || '未分类'],
+        category: (onlineEntry.categories || [])[0] || onlineEntry.category || '未分类',
+        description: onlineEntry.description || '',
+        updatedAt: Date.now()
+      };
+
+      if (localUrls.has(onlineEntry.url)) {
+        // 本地已有，更新
+        const existing = localEntries.find(e => e.url === onlineEntry.url);
+        entryData.id = existing.id;
+        entryData.createdAt = existing.createdAt;
+        await put('sites', entryData);
+        updated++;
       } else {
-        failed++;
+        // 本地没有，添加
+        entryData.createdAt = Date.now();
+        await add('sites', entryData);
+        added++;
       }
     }
 
-    status.textContent = `✓ 同步完成: ${synced} 个成功, ${failed} 个失败`;
-    showToast(`同步完成: ${synced} 个成功, ${failed} 个失败`);
+    status.textContent = `✓ 同步完成: ${updated} 个更新, ${added} 个新增, 保留 ${localEntries.length - updated} 个本地独有条目`;
+    showToast(`同步完成: ${updated} 个更新, ${added} 个新增`);
 
     // 重新加载表格
     await loadEntries();
@@ -338,7 +370,7 @@ async function syncAllIcons() {
   }
 
   btn.disabled = false;
-  btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9V3m-9 9a9 9 0 0 1 9-9"/></svg> 同步图标';
+  btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9V3m-9 9a9 9 0 0 1 9-9"/></svg> 同步数据';
 }
 
 async function importFromRainForest() {
