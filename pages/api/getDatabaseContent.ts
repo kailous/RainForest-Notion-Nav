@@ -21,21 +21,14 @@ async function getData(): Promise<{ entries: any[] }> {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
-  if (req.method === 'GET') {
+  if (req.method === 'GET' || req.method === 'POST') {
     try {
       const data = await getData();
+      res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300');
       res.status(200).json(data);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Failed to get data' });
-    }
-  } else if (req.method === 'POST') {
-    try {
-      const data = await getData();
-      res.status(200).json(data);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Failed to refresh data' });
     }
   } else {
     res.setHeader('Allow', 'GET, POST');

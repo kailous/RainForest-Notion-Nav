@@ -21,7 +21,7 @@ async function getData(): Promise<{ entries: any[] }> {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
-  if (req.method === 'GET') {
+  if (req.method === 'GET' || req.method === 'POST') {
     try {
       const data = await getData();
       const tagSet = new Set<string>();
@@ -29,13 +29,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         (entry.categories || []).forEach((tag: string) => tagSet.add(tag));
       });
       res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300');
-      res.status(200).json(Array.from(tagSet));
+      res.status(200).json({
+        titleName: process.env.NAV_NAME || '',
+        entries: data.entries,
+        uniqueTags: Array.from(tagSet),
+      });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Failed to get unique tags' });
+      res.status(500).json({ error: 'Failed to get data' });
     }
   } else {
-    res.setHeader('Allow', 'GET');
+    res.setHeader('Allow', 'GET, POST');
     res.status(405).json({ message: 'Method not allowed' });
   }
 }

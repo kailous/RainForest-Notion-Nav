@@ -7,7 +7,7 @@ const IndexPage = () => {
     const [uniqueTags, setUniqueTags] = useState([]);
 
     const filterByTag = (tag) => {
-        fetch('/api/getDatabaseContent')
+        fetch('/api/getAllData')
             .then(response => response.json())
             .then(data => {
                 if (tag === '全部') {
@@ -23,19 +23,13 @@ const IndexPage = () => {
     }
 
     useEffect(() => {
-        fetch('/api/getUniqueTags')
+        fetch('/api/getAllData')
             .then(response => response.json())
-            .then(data => setUniqueTags(data))
-            .catch(error => console.error(error));
-
-        fetch('/api/getDatabaseContent')
-            .then(response => response.json())
-            .then(data => setEntries(data.entries || []))
-            .catch(error => console.error(error));
-
-        fetch('/api/getTitleName')
-            .then(response => response.json())
-            .then(data => setTitleName(data.titleName || ''))
+            .then(data => {
+                setTitleName(data.titleName || '');
+                setUniqueTags(data.uniqueTags || []);
+                setEntries(data.entries || []);
+            })
             .catch(error => console.error(error));
 
         const timeoutId = setTimeout(() => {
@@ -56,7 +50,7 @@ const IndexPage = () => {
 
     const handleRefresh = async () => {
         try {
-            const response = await fetch('/api/getDatabaseContent', {
+            const response = await fetch('/api/getAllData', {
                 method: 'POST',
             });
             if (response.ok) {
