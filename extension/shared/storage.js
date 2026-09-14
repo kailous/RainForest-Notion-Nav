@@ -4,7 +4,7 @@
  */
 
 const DB_NAME = 'rainforest-nav';
-const DB_VERSION = 5;
+const DB_VERSION = 6;
 
 let db = null;
 
@@ -68,6 +68,20 @@ export async function initDB() {
           iconsStore.createIndex('mimeType', 'mimeType', { unique: false });
           iconsStore.createIndex('originUrl', 'originUrl', { unique: false });
         }
+      }
+
+      // v4 -> v6: 修复 icons store，确保有 originUrl 索引
+      if (oldVersion < 6) {
+        if (database.objectStoreNames.contains('icons')) {
+          try {
+            database.deleteObjectStore('icons');
+          } catch (e) {
+            console.log('Failed to delete icons store:', e);
+          }
+        }
+        const iconsStore = database.createObjectStore('icons', { keyPath: 'id' });
+        iconsStore.createIndex('mimeType', 'mimeType', { unique: false });
+        iconsStore.createIndex('originUrl', 'originUrl', { unique: false });
       }
     };
   });
@@ -227,12 +241,17 @@ export async function saveIcon(base64Data, originUrl = null) {
 // 通过 originUrl 查找已存在的图标
 export async function findIconByUrl(originUrl) {
   await initDB();
+  console.log('[Storage] Finding icon by URL:', originUrl);
   return new Promise((resolve, reject) => {
     const tx = db.transaction('icons', 'readonly');
     const store = tx.objectStore('icons');
+    console.log('[Storage] Available indexes:', store.indexNames);
     const index = store.index('originUrl');
     const request = index.get(originUrl);
-    request.onsuccess = () => resolve(request.result || null);
+    request.onsuccess = () => {
+      console.log('[Storage] Found icon:', request.result ? 'yes' : 'no');
+      resolve(request.result || null);
+    };
     request.onerror = () => reject(request.error);
   });
 }
