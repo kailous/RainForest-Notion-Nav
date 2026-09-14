@@ -4,7 +4,7 @@
  */
 
 const DB_NAME = 'rainforest-nav';
-const DB_VERSION = 4;
+const DB_VERSION = 5;
 
 let db = null;
 
@@ -52,24 +52,13 @@ export async function initDB() {
         siteStore.createIndex('createdAt', 'createdAt', { unique: false });
       }
 
-      // v3 -> v4: 添加 icons 对象存储（存储 base64 图标）
+      // v3 -> v4: 添加 icons 对象存储（存储 base64 图标，含 originUrl 索引）
       if (oldVersion < 4) {
         if (!database.objectStoreNames.contains('icons')) {
           const iconsStore = database.createObjectStore('icons', { keyPath: 'id' });
           iconsStore.createIndex('mimeType', 'mimeType', { unique: false });
           iconsStore.createIndex('originUrl', 'originUrl', { unique: false });
         }
-      }
-      // v4 -> v5: 添加 originUrl 索引
-      if (oldVersion < 5) {
-        if (database.objectStoreNames.contains('icons')) {
-          try {
-            database.deleteObjectStore('icons');
-          } catch (e) {}
-        }
-        const iconsStore = database.createObjectStore('icons', { keyPath: 'id' });
-        iconsStore.createIndex('mimeType', 'mimeType', { unique: false });
-        iconsStore.createIndex('originUrl', 'originUrl', { unique: false });
       }
     };
   });
