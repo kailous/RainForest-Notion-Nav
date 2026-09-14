@@ -112,6 +112,16 @@
           </div>
 
           <div class="saas-settings-section" style="margin-top: 20px;">
+            <h3>同步图标</h3>
+            <p class="saas-settings-desc">将所有外部图标下载到本地存储，断网后也能正常显示</p>
+            <button class="saas-btn-primary" id="syncIconsBtn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9V3m-9 9a9 9 0 0 1 9-9"/></svg>
+              同步图标
+            </button>
+            <p id="syncStatus" style="margin-top: 12px; font-size: var(--font-size-sm); color: var(--text-color);"></p>
+          </div>
+
+          <div class="saas-settings-section" style="margin-top: 20px;">
             <h3>导出 / 导入 JSON</h3>
             <p class="saas-settings-desc">将所有数据导出为 JSON 文件，或从 JSON 恢复</p>
             <div style="display: flex; gap: 10px;">

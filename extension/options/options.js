@@ -181,6 +181,7 @@ function setupEventListeners() {
 
   // 数据管理
   document.getElementById('rfImportBtn').addEventListener('click', importFromRainForest);
+  document.getElementById('syncIconsBtn').addEventListener('click', syncAllIcons);
   document.getElementById('exportBtn').addEventListener('click', exportData);
   document.getElementById('importBtn').addEventListener('click', () => {
     document.getElementById('importFile').click();
@@ -287,6 +288,57 @@ async function handleSubmit(e) {
 
   closeModal();
   await loadEntries();
+}
+
+// 同步所有图标到本地
+async function syncAllIcons() {
+  const status = document.getElementById('syncStatus');
+  const btn = document.getElementById('syncIconsBtn');
+
+  btn.disabled = true;
+  btn.innerHTML = '同步中...';
+  status.textContent = '正在扫描图标...';
+
+  try {
+    const entries = await dbGetAll('sites');
+    const entriesWithIcons = entries.filter(e => e.iconUrl && !e.iconUrl.startsWith('data:') && !e.iconUrl.startsWith('icon_'));
+
+    if (entriesWithIcons.length === 0) {
+      status.textContent = '✓ 所有图标已同步完成';
+      showToast('所有图标已同步完成');
+      btn.disabled = false;
+      btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9V3m-9 9a9 9 0 0 1 9-9"/></svg> 同步图标';
+      return;
+    }
+
+    let synced = 0, failed = 0;
+    for (let i = 0; i < entriesWithIcons.length; i++) {
+      const entry = entriesWithIcons[i];
+      status.textContent = `正在同步 ${i + 1}/${entriesWithIcons.length}...`;
+
+      const localIcon = await getOrCreateLocalIcon(entry.iconUrl);
+      if (localIcon) {
+        entry.iconUrl = localIcon;
+        await put('sites', entry);
+        synced++;
+      } else {
+        failed++;
+      }
+    }
+
+    status.textContent = `✓ 同步完成: ${synced} 个成功, ${failed} 个失败`;
+    showToast(`同步完成: ${synced} 个成功, ${failed} 个失败`);
+
+    // 重新加载表格
+    await loadEntries();
+  } catch (err) {
+    console.error('Sync error:', err);
+    status.textContent = `✗ 同步失败: ${err.message}`;
+    showToast('同步失败: ' + err.message, 'error');
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9V3m-9 9a9 9 0 0 1 9-9"/></svg> 同步图标';
 }
 
 async function importFromRainForest() {
