@@ -117,3 +117,32 @@ body:has(.saas-login) {
   color: var(--text-color);
   opacity: 0.7;
 }
+
+/* ===== 数据管理页布局 ===== */
+#page-data .saas-settings {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+#page-data .saas-settings-section {
+  max-width: none;
+}
+
+#page-data .saas-settings-section-wide {
+  grid-column: span 2;
+}
+
+#page-data .saas-settings-section-full {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 1200px) {
+  #page-data .saas-settings {
+    grid-template-columns: 1fr;
+  }
+
+  #page-data .saas-settings-section-wide {
+    grid-column: auto;
+  }
+}

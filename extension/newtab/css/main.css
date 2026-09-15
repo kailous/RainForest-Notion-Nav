@@ -85,40 +85,6 @@ footer {
     border-radius: 12px;
 }
 
-/* 设置按钮 */
-.settings-btn {
-    position: fixed;
-    top: 20px;
-    right: var(--padding-w);
-    z-index: 1000;
-    width: 24px;
-    height: 40px;
-    border: none;
-    background: url("../icons/settings.svg") no-repeat center;
-    cursor: pointer;
-    opacity: 0.6;
-    transition: opacity 0.2s;
-}
-
-.settings-btn:hover {
-    opacity: 1;
-}
-
-.settings-btn:hover::after {
-    content: "管理";
-    margin-left: 30px;
-    padding: 4px 8px;
-    font-size: var(--font-size-tag);
-    color: #fff;
-    background-color: var(--highlight-color);
-    white-space: nowrap;
-    border-radius: 4px;
-    line-height: 100%;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
 /* 空状态 */
 .empty-state {
     width: 100%;
@@ -130,38 +96,4 @@ footer {
 .empty-state p {
     font-size: var(--font-size-lg);
     margin-top: 20px;
-}
-
-/* 设置按钮 */
-.settings-btn {
-    position: fixed;
-    top: 20px;
-    right: var(--padding-w);
-    z-index: 1000;
-    width: 24px;
-    height: 40px;
-    border: none;
-    background: url("../icons/settings.svg") no-repeat center;
-    cursor: pointer;
-    opacity: 0.6;
-    transition: opacity 0.2s;
-}
-
-.settings-btn:hover {
-    opacity: 1;
-}
-
-.settings-btn:hover::after {
-    content: "管理";
-    margin-left: 30px;
-    padding: 4px 8px;
-    font-size: var(--font-size-tag);
-    color: #fff;
-    background-color: var(--highlight-color);
-    white-space: nowrap;
-    border-radius: 4px;
-    line-height: 100%;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
 }
