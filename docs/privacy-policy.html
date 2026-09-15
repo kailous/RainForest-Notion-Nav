@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>隐私政策 - RainForest Navigator</title>
+  <meta name="description" content="RainForest Navigator 浏览器扩展的隐私政策 / Privacy Policy of the RainForest Navigator browser extension">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      line-height: 1.75;
+      color: #1f2328;
+      background: #f6f7f9;
+    }
+    .page {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 48px 24px 96px;
+    }
+    header {
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #d8dee4;
+    }
+    h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.01em; }
+    header p { margin-top: 8px; color: #57606a; font-size: 14px; }
+    h2 {
+      font-size: 19px;
+      font-weight: 650;
+      margin: 36px 0 12px;
+      padding-top: 8px;
+    }
+    h2 .en { display: block; font-size: 14px; font-weight: 500; color: #57606a; }
+    p, li { font-size: 15px; }
+    ul { padding-left: 22px; margin: 8px 0; }
+    li { margin: 4px 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 14px;
+      background: #fff;
+    }
+    th, td {
+      border: 1px solid #d8dee4;
+      padding: 8px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: #eef1f4; font-weight: 600; white-space: nowrap; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 13px;
+      background: #eef1f4;
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+    .en-section {
+      margin-top: 64px;
+      padding-top: 32px;
+      border-top: 1px solid #d8dee4;
+      color: #1f2328;
+    }
+    .en-section h2 .zh { display: block; font-size: 14px; font-weight: 500; color: #57606a; }
+    a { color: #0969da; }
+    .card {
+      background: #fff;
+      border: 1px solid #d8dee4;
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 16px 0;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <h1>隐私政策</h1>
+    <p>RainForest Navigator 浏览器扩展 &middot; 生效日期：2026 年 9 月 15 日</p>
+    <p>Privacy Policy &middot; RainForest Navigator browser extension &middot; Effective: September 15, 2026</p>
+  </header>
+
+  <h2>1. 概述</h2>
+  <p>RainForest Navigator（以下简称"本扩展"）是一款本地化的浏览器新标签页导航工具。本扩展<strong>不收集、不上传、不销售</strong>任何用户个人数据。所有导航条目、分类与图标数据均仅保存在您本机浏览器中。</p>
+
+  <h2>2. 我们收集的信息</h2>
+  <p>本扩展不会主动收集任何个人信息，不包含任何分析统计、广告或第三方追踪代码，也不使用 Cookie。</p>
+  <p>以下数据由您自行创建或导入，并<strong>仅存储在本机浏览器</strong>的 IndexedDB 本地数据库中：</p>
+  <ul>
+    <li>导航条目（名称、链接、描述、分类）；</li>
+    <li>站点图标（以 Base64 编码缓存的图片数据）；</li>
+    <li>扩展设置（例如您配置的同步 API 地址）。</li>
+  </ul>
+
+  <h2>3. 网络请求说明</h2>
+  <p>本扩展默认不进行任何网络通信。仅在您<strong>主动触发</strong>以下操作时才会发起网络请求：</p>
+  <ul>
+    <li><strong>同步数据</strong>：向您在设置中自行填写的 API 地址（默认为 <code>https://nav.rainforest.org.cn/api/getAllData</code>）请求导航数据，用于与本地数据合并；</li>
+    <li><strong>图标本地化</strong>：下载导航条目所指向站点的图标文件，以便离线显示，下载内容仅保存在本机。</li>
+  </ul>
+  <p>除上述两种由您主动发起的请求外，本扩展不会向任何服务器发送数据。</p>
+
+  <h2>4. 权限使用说明</h2>
+  <table>
+    <tr><th>权限</th><th>用途</th></tr>
+    <tr><td><code>storage</code></td><td>允许扩展在浏览器本地存储导航数据与设置（实际数据存放于 IndexedDB）。</td></tr>
+    <tr><td><code>activeTab</code></td><td>在您当前标签页内提供导航跳转能力。</td></tr>
+    <tr><td><code>host_permissions (&lt;all_urls&gt;)</code></td><td>仅用于您主动触发的"同步数据"与"图标本地化"请求，以便访问您配置的 API 地址及任意图标来源站点；本扩展不会在后台自动访问这些站点。</td></tr>
+  </table>
+
+  <h2>5. 数据共享与披露</h2>
+  <p>本扩展不与任何第三方共享、出售或交换数据。由于数据不离开您的设备，我们亦无法访问、读取或恢复您的任何数据。</p>
+
+  <h2>6. 数据导出与删除</h2>
+  <ul>
+    <li>您可以在扩展管理页中将数据导出为 JSON 文件，该文件仅保存到您指定的本地位置；</li>
+    <li>您可以在管理页"危险区域"中一键清除全部本地数据；</li>
+    <li>卸载本扩展或清除浏览器数据时，上述本地数据将被一并删除。</li>
+  </ul>
+
+  <h2>7. 儿童隐私</h2>
+  <p>本扩展不面向 13 岁以下儿童收集任何数据，也不包含任何儿童个人信息。</p>
+
+  <h2>8. 政策变更</h2>
+  <p>若本政策发生变更，更新后的版本将发布在本页面，并随扩展版本更新生效。</p>
+
+  <h2>9. 联系我们</h2>
+  <p>如对本政策有任何疑问，请通过项目仓库提交 Issue：<a href="https://github.com/kailous/RainForest-Nav">https://github.com/kailous/RainForest-Nav</a></p>
+
+  <div class="en-section">
+    <h2>Privacy Policy (English)<span class="zh">隐私政策（英文译本）</span></h2>
+
+    <h2>1. Overview<span class="zh">概述</span></h2>
+    <p>RainForest Navigator (the "Extension") is a local-first new-tab navigation tool for your browser. The Extension <strong>does not collect, transmit, or sell</strong> any personal data. All navigation entries, categories, and icons are stored only on your own device.</p>
+
+    <h2>2. Information We Collect<span class="zh">我们收集的信息</span></h2>
+    <p>The Extension does not actively collect any personal information. It contains no analytics, no advertising, no third-party tracking code, and does not use cookies.</p>
+    <p>The following data is created or imported by you and stored <strong>exclusively in your browser's local IndexedDB database</strong>:</p>
+    <ul>
+      <li>Navigation entries (name, URL, description, categories);</li>
+      <li>Site icons (cached as Base64-encoded image data);</li>
+      <li>Extension settings (e.g. the sync API address you configure).</li>
+    </ul>
+
+    <h2>3. Network Requests<span class="zh">网络请求说明</span></h2>
+    <p>The Extension performs no network communication by default. Network requests occur only when <strong>you explicitly trigger</strong> one of the following actions:</p>
+    <ul>
+      <li><strong>Data sync</strong>: fetching navigation data from the API address you configured (default <code>https://nav.rainforest.org.cn/api/getAllData</code>) in order to merge it with your local data;</li>
+      <li><strong>Icon localization</strong>: downloading icon files of the sites referenced by your entries so they can be displayed offline; downloaded content is stored locally only.</li>
+    </ul>
+    <p>Apart from these user-initiated requests, the Extension sends no data to any server.</p>
+
+    <h2>4. Permissions<span class="zh">权限使用说明</span></h2>
+    <table>
+      <tr><th>Permission</th><th>Purpose</th></tr>
+      <tr><td><code>storage</code></td><td>Allows the Extension to persist navigation data and settings in the browser (data is actually kept in IndexedDB).</td></tr>
+      <tr><td><code>activeTab</code></td><td>Provides navigation actions within your current tab.</td></tr>
+      <tr><td><code>host_permissions (&lt;all_urls&gt;)</code></td><td>Used solely for the user-initiated "sync data" and "icon localization" requests described above; the Extension never contacts these sites in the background.</td></tr>
+    </table>
+
+    <h2>5. Data Sharing<span class="zh">数据共享与披露</span></h2>
+    <p>The Extension does not share, sell, or exchange data with any third party. Because your data never leaves your device, we are unable to access, read, or recover any of it.</p>
+
+    <h2>6. Data Export &amp; Deletion<span class="zh">数据导出与删除</span></h2>
+    <ul>
+      <li>You can export your data as a JSON file, saved only to a location you choose;</li>
+      <li>You can erase all local data at any time from the extension's management page;</li>
+      <li>Uninstalling the Extension or clearing browser data removes all stored data.</li>
+    </ul>
+
+    <h2>7. Children's Privacy<span class="zh">儿童隐私</span></h2>
+    <p>The Extension does not collect any data from children under 13 and contains no children's personal information.</p>
+
+    <h2>8. Changes to This Policy<span class="zh">政策变更</span></h2>
+    <p>If this policy changes, the updated version will be published on this page and take effect with the corresponding extension release.</p>
+
+    <h2>9. Contact<span class="zh">联系我们</span></h2>
+    <p>Questions about this policy can be raised as an issue in the project repository: <a href="https://github.com/kailous/RainForest-Nav">https://github.com/kailous/RainForest-Nav</a></p>
+  </div>
+</div>
+</body>
+</html>

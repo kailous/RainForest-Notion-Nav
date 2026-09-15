@@ -15,6 +15,9 @@
 # production
 /build
 
+# packaged extension artifact
+/RainForest-Nav.zip
+
 # misc
 .DS_Store
 *.pem
